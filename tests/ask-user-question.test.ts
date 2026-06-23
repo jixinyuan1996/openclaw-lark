@@ -464,6 +464,54 @@ describe('AskUserQuestion card callback', () => {
       expect(answerEls[0].content).toContain('橙子');
       expect(answerEls[0].content).not.toContain('香蕉');
     });
+
+    it('parses a real Feishu form_submit payload (boolean checker values)', async () => {
+      const questionId = await seedPendingQuestion({
+        questions: [
+          {
+            question: '你想总结哪几个群？（可多选）',
+            header: '选择群',
+            options: [
+              { label: 'Neo Wu Test', description: '' },
+              { label: 'Hyclaw 产研', description: '' },
+              { label: '巡检场景快速落地HyClaw', description: '' },
+              { label: '资金中心项目-客诉群', description: '' },
+              { label: '资金中心项目-产研群', description: '' },
+              { label: '资金中心项目-研发群', description: '' },
+            ],
+            multiSelect: true,
+            selectStyle: 'checkbox',
+          },
+        ],
+      });
+
+      // Real form_value captured from a Feishu card.action.trigger submit
+      // (6 checkboxes, options 1 and 2 checked). Feishu reports each checker's
+      // state as a JSON boolean, keyed by the per-option field name. Keeping a
+      // real sample here pins the parser to the actual payload shape.
+      const event = createFormSubmitEvent(questionId, {
+        selection_0_0: false,
+        selection_0_1: true,
+        selection_0_2: true,
+        selection_0_3: false,
+        selection_0_4: false,
+        selection_0_5: false,
+      });
+      const result = handleAskUserAction(event, createMockCfg(), TEST_ACCOUNT_ID) as any;
+
+      expect(result.toast.type).toBe('success');
+
+      const answerEls = findDeep(
+        result.card.data.body,
+        (el: any) => el?.tag === 'markdown' && typeof el?.content === 'string' && el.content.includes('⏳'),
+      );
+      expect(answerEls.length).toBe(1);
+      // Only the two checked options appear, in option order.
+      expect(answerEls[0].content).toContain('Hyclaw 产研');
+      expect(answerEls[0].content).toContain('巡检场景快速落地HyClaw');
+      expect(answerEls[0].content).not.toContain('Neo Wu Test');
+      expect(answerEls[0].content).not.toContain('资金中心项目-客诉群');
+    });
   });
 
   describe('multi-question form', () => {
