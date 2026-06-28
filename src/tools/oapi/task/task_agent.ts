@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_agent tool -- Manage Feishu Task Agent registration.
+ * weact_task_agent tool -- Manage Feishu Task Agent registration.
  *
  * Actions:
  * - register:        Register task agent (tenant identity)
@@ -57,15 +57,15 @@ export function registerFeishuTaskAgentTool(api: OpenClawPluginApi): void {
     if (!api.config) return;
     const cfg = api.config;
 
-    const { toolClient } = createToolContext(api, 'feishu_task_agent');
+    const { toolClient } = createToolContext(api, 'weact_task_agent');
 
     registerTool(
         api,
         {
-            name: 'feishu_task_agent',
+            name: 'weact_task_agent',
             label: 'Feishu Task Agent Registration',
             description:
-                '飞书任务 Agent 注册管理工具。用于注册/取消注册 Task Agent，以及查询已注册列表。',
+                'WeAct任务 Agent 注册管理工具。用于注册/取消注册 Task Agent，以及查询已注册列表。',
             parameters: FeishuTaskAgentSchema,
             async execute(_toolCallId: string, params: unknown) {
                 const p = params as FeishuTaskAgentParams;
@@ -100,7 +100,7 @@ export function registerFeishuTaskAgentTool(api: OpenClawPluginApi): void {
 
 
                     if (normalizedAction === 'update_profile') {
-                        const res = await client.invokeByPath('feishu_task_agent.update_profile', resolved.path, {
+                        const res = await client.invokeByPath('weact_task_agent.update_profile', resolved.path, {
                             method: 'POST',
                             as,
                             body: {
@@ -115,7 +115,7 @@ export function registerFeishuTaskAgentTool(api: OpenClawPluginApi): void {
 
                     // register
                     if (normalizedAction === 'register') {
-                        const res = await client.invokeByPath('feishu_task_agent.register', resolved.path, {
+                        const res = await client.invokeByPath('weact_task_agent.register', resolved.path, {
                             method: 'POST',
                             as,
                             headers: {
@@ -132,6 +132,6 @@ export function registerFeishuTaskAgentTool(api: OpenClawPluginApi): void {
                 }
             },
         },
-        { name: 'feishu_task_agent' },
+        { name: 'weact_task_agent' },
     );
 }

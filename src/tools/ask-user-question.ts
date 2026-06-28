@@ -6,7 +6,7 @@
  *
  * 流程（非阻塞，遵循 auto-auth synthetic message 模式）：
  * 1. AI 调用 AskUserQuestion 工具，传入问题和选项
- * 2. 发送 form 交互式飞书卡片
+ * 2. 发送 form 交互式WeAct卡片
  * 3. 工具 execute() 立即返回 { status: 'pending' }
  * 4. 用户填写表单并点击提交，form_value 一次性回传
  * 5. handleAskUserAction 解析答案，注入 synthetic message
@@ -15,7 +15,7 @@
  * 所有卡片统一使用 form 容器，交互组件在本地缓存值，
  * 提交时通过 form_value 一次性回调，避免独立回调导致的 loading 闪烁。
  *
- * 注意：提交按钮必须设置 value 字段。飞书客户端会校验交互组件是否携带 value，
+ * 注意：提交按钮必须设置 value 字段。WeAct客户端会校验交互组件是否携带 value，
  * 缺失时直接报 200340 错误，回调不会发送到服务端。虽然 form_submit 场景下
  * form_value 是主要数据载体，但 value 作为按钮的合法性标记仍需存在。
  */
@@ -980,7 +980,7 @@ const AskUserQuestionSchema = Type.Object({
 // ---------------------------------------------------------------------------
 
 export function registerAskUserQuestionTool(api: OpenClawPluginApi): void {
-  const toolName = 'feishu_ask_user_question';
+  const toolName = 'weact_ask_user_question';
 
   if (!checkToolRegistration(api, toolName)) return;
 

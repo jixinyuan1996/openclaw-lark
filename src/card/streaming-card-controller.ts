@@ -1036,7 +1036,7 @@ export class StreamingCardController {
         return;
       }
 
-      // 卡片表格数超出飞书限制（230099/11310）— 禁用 CardKit 流式，
+      // 卡片表格数超出WeAct限制（230099/11310）— 禁用 CardKit 流式，
       // 保留 originalCardKitCardId 供 onIdle 做最终 CardKit 更新
       if (isCardTableLimitError(err)) {
         log.warn('flushCardUpdate: card table limit exceeded (230099/11310), disabling CardKit streaming', {
@@ -1157,7 +1157,7 @@ export class StreamingCardController {
 // ---------------------------------------------------------------------------
 
 /**
- * 终态卡片的正文和 reasoning 都会被飞书按 markdown 渲染，
+ * 终态卡片的正文和 reasoning 都会被WeAct按 markdown 渲染，
  * 因此两者都要先做图片替换与表格降级，避免再次撞到 230099/11310。
  */
 export function prepareTerminalCardContent(

@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_auth command — 飞书用户权限批量授权命令实现
+ * weact_auth command — WeAct用户权限批量授权命令实现
  *
  * 直接复用 onboarding-auth.ts 的 triggerOnboarding() 函数。
  * 注意：此命令仅限应用 owner 执行（与 onboarding 逻辑一致）
@@ -39,13 +39,13 @@ const T: Record<
   }
 > = {
   zh_cn: {
-    noIdentity: '❌ 无法获取用户身份，请在飞书对话中使用此命令',
+    noIdentity: '❌ 无法获取用户身份，请在WeAct对话中使用此命令',
     accountIncomplete: (accountId) => `❌ 账号 ${accountId} 配置不完整`,
     missingSelfManage: (link) =>
-      `❌ 应用缺少核心权限 application:application:self_manage，无法查询可授权 scope 列表。\n\n请管理员在飞书开放平台开通此权限后重试：[申请权限](${link})`,
+      `❌ 应用缺少核心权限 application:application:self_manage，无法查询可授权 scope 列表。\n\n请管理员在WeAct开放平台开通此权限后重试：[申请权限](${link})`,
     ownerOnly: '❌ 此命令仅限应用 owner 执行\n\n如需授权，请联系应用管理员。',
     missingOfflineAccess: (link) =>
-      `❌ 应用缺少核心权限 offline_access，无法查询可授权 scope 列表。\n\n请管理员在飞书开放平台开通此权限后重试：[申请权限](${link})`,
+      `❌ 应用缺少核心权限 offline_access，无法查询可授权 scope 列表。\n\n请管理员在WeAct开放平台开通此权限后重试：[申请权限](${link})`,
     noUserScopes: '当前应用未开通任何用户级权限，无需授权。',
     allAuthorized: (count) => `✅ 您已授权所有可用权限（共 ${count} 个），无需重复授权。`,
     authSent: '✅ 已发送授权请求',
@@ -194,7 +194,7 @@ async function executeFeishuAuth(config: OpenClawConfig): Promise<AuthResult> {
 // ---------------------------------------------------------------------------
 
 /**
- * 执行飞书用户权限批量授权命令
+ * 执行WeAct用户权限批量授权命令
  * 直接调用 triggerOnboarding()，包含 owner 检查
  */
 export async function runFeishuAuth(config: OpenClawConfig, locale: FeishuLocale = 'zh_cn'): Promise<string> {
@@ -203,7 +203,7 @@ export async function runFeishuAuth(config: OpenClawConfig, locale: FeishuLocale
 }
 
 /**
- * 运行飞书授权命令，同时生成中英双语结果。
+ * 运行WeAct授权命令，同时生成中英双语结果。
  * 副作用（triggerOnboarding）只执行一次，结果格式化为双语文本。
  */
 export async function runFeishuAuthI18n(config: OpenClawConfig): Promise<Record<FeishuLocale, string>> {

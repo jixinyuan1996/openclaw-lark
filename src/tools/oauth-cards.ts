@@ -278,7 +278,7 @@ export function toInAppWebUrl(targetUrl: string, brand?: LarkBrand): string {
 export function buildAuthSuccessCard(brand?: LarkBrand): Record<string, unknown> {
   const zhT = CARD_TEXTS.zh_cn;
   const enT = CARD_TEXTS.en_us;
-  const brandZh = brand === 'lark' ? 'Lark' : '飞书';
+  const brandZh = brand === 'lark' ? 'Lark' : 'WeAct';
   const brandEn = brand === 'lark' ? 'Lark' : 'Feishu';
   return {
     schema: '2.0',
@@ -364,7 +364,7 @@ export function buildAuthFailedCard(_reason: string): Record<string, unknown> {
 export function buildAuthIdentityMismatchCard(brand?: LarkBrand): Record<string, unknown> {
   const zhT = CARD_TEXTS.zh_cn;
   const enT = CARD_TEXTS.en_us;
-  const brandZh = brand === 'lark' ? 'Lark' : '飞书';
+  const brandZh = brand === 'lark' ? 'Lark' : 'WeAct';
   const brandEn = brand === 'lark' ? 'Lark' : 'Feishu';
   return {
     schema: '2.0',

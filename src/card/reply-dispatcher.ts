@@ -285,7 +285,7 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
               });
             } catch (err) {
               if (staticGuard?.terminate('deliver.cardChunk', err)) return;
-              // 卡片表格数超出飞书限制 — 降级为纯文本
+              // 卡片表格数超出WeAct限制 — 降级为纯文本
               if (isCardTableLimitError(err)) {
                 log.warn('card table limit exceeded (230099/11310), falling back to text', { chatId });
                 cardTableLimitHit = true;

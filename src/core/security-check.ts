@@ -131,7 +131,7 @@ export function formatIsolationWarning(status: IsolationStatus, cfg?: ClawdbotCo
     const names = accountNames(status.accounts);
     sections.push(
       `⚠️ **多个机器人共用记忆，对话内容可能互相可见**\n\n` +
-        `当前 ${status.accounts.length} 个飞书机器人（${names}）共用同一个 AI 记忆。\n` +
+        `当前 ${status.accounts.length} 个WeAct机器人（${names}）共用同一个 AI 记忆。\n` +
         `用户 A 跟机器人「${status.accounts[0].name ?? status.accounts[0].accountId}」说的话，` +
         `可能出现在机器人「${status.accounts[1]?.name ?? status.accounts[1]?.accountId ?? '...'}」的回复中。\n\n` +
         `👉 发送 **/feishu isolate** 一键查看修复方案`,
@@ -163,7 +163,7 @@ export function generateIsolationFixCommands(cfg: ClawdbotConfig): { commands: s
 
   const agentsList = accounts.map((a) => ({
     id: `feishu-${a.accountId}`,
-    name: `飞书 ${a.name ?? a.accountId}`,
+    name: `WeAct ${a.name ?? a.accountId}`,
   }));
   commands.push(`openclaw config set agents.list '${JSON.stringify(agentsList)}' --json`);
 

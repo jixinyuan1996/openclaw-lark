@@ -4,8 +4,8 @@
  *
  * 消息格式化公共函数
  *
- * 将飞书 IM API 返回的原始消息对象转换为 AI 可读的 JSON 格式。
- * 由 feishu_im_user_get_messages 和 feishu_im_user_get_thread_messages 共享。
+ * 将WeAct IM API 返回的原始消息对象转换为 AI 可读的 JSON 格式。
+ * 由 weact_im_user_get_messages 和 weact_im_user_get_thread_messages 共享。
  *
  * 所有 API 调用均通过 UAT（用户身份）进行。
  */
@@ -53,7 +53,7 @@ function createUATFetchSubMessages(client: ToolClient) {
       code?: number;
       msg?: string;
       data?: { items?: ApiMessageItem[] };
-    }>('feishu_im_user_get_messages.default', `/open-apis/im/v1/messages/${messageId}`, {
+    }>('weact_im_user_get_messages.default', `/open-apis/im/v1/messages/${messageId}`, {
       method: 'GET',
       query: { user_id_type: 'open_id', card_msg_content_type: 'raw_card_content' },
       as: 'user',
@@ -131,7 +131,7 @@ export async function formatMessageItem(
     }));
   }
 
-  // 转换 create_time（飞书 API 返回毫秒时间戳字符串 → ISO 8601 +08:00）
+  // 转换 create_time（WeAct API 返回毫秒时间戳字符串 → ISO 8601 +08:00）
   const createTime = item.create_time ? millisStringToDateTime(item.create_time) : '';
 
   const formatted: FormattedMessage = {

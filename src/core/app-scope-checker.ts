@@ -26,7 +26,7 @@ export interface AppInfo {
   appId: string;
   creatorId?: string; // ou_xxx
   ownerOpenId?: string; // owner.owner_id (ou_xxx)（原样保留，兼容性）
-  ownerType?: number; // 0=飞书科技, 1=合作伙伴, 2=企业内成员（原样保留，兼容性）
+  ownerType?: number; // 0=WeAct科技, 1=合作伙伴, 2=企业内成员（原样保留，兼容性）
   /**
    * 统一的 owner 判定结果。所有需要判定"谁是应用 owner"的场景都应使用此字段。
    *

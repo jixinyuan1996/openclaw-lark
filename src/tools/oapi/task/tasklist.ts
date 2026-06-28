@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_tasklist tool -- Manage Feishu task lists.
+ * weact_task_tasklist tool -- Manage Feishu task lists.
  *
  * P0 Actions: create, get, list, tasks 支持通过 auth_type 参数切换用户(user)或应用(tenant)身份。
  * P1 Actions: patch, add_members
@@ -161,15 +161,15 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_task_tasklist');
+  const { toolClient, log } = createToolContext(api, 'weact_task_tasklist');
 
   registerTool(
     api,
     {
-      name: 'feishu_task_tasklist',
+      name: 'weact_task_tasklist',
       label: 'Feishu Task Lists',
       description:
-        '【以用户或应用身份】飞书任务清单管理工具。当用户要求创建/查询/管理清单、查看清单内的任务时使用。Actions: create（创建清单）, get（获取清单详情）, list（列出所有可读取的清单，包括我创建的和他人共享给我的）, tasks（列出清单内的任务）, patch（更新清单）, add_members（添加成员）。',
+        '【以用户或应用身份】WeAct任务清单管理工具。当用户要求创建/查询/管理清单、查看清单内的任务时使用。Actions: create（创建清单）, get（获取清单详情）, list（列出所有可读取的清单，包括我创建的和他人共享给我的）, tasks（列出清单内的任务）, patch（更新清单）, add_members（添加成员）。',
       parameters: FeishuTaskTasklistSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuTaskTasklistParams;
@@ -196,7 +196,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_tasklist.create',
+                'weact_task_tasklist.create',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.create(
                     {
@@ -225,7 +225,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               log.info(`get: tasklist_guid=${p.tasklist_guid}`);
 
               const res = await client.invoke(
-                'feishu_task_tasklist.get',
+                'weact_task_tasklist.get',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.get(
                     {
@@ -256,7 +256,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               log.info(`list: page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_task_tasklist.list',
+                'weact_task_tasklist.list',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.list(
                     {
@@ -289,7 +289,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               log.info(`tasks: tasklist_guid=${p.tasklist_guid}, completed=${p.completed ?? 'all'}`);
 
               const res = await client.invoke(
-                'feishu_task_tasklist.tasks',
+                'weact_task_tasklist.tasks',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.tasks(
                     {
@@ -325,7 +325,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
             case 'patch': {
               log.info(`patch: tasklist_guid=${p.tasklist_guid}, name=${p.name}`);
 
-              // 飞书 Task API 要求特殊的更新格式
+              // WeAct Task API 要求特殊的更新格式
               const tasklistData: any = {};
               const updateFields: string[] = [];
 
@@ -341,7 +341,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_tasklist.patch',
+                'weact_task_tasklist.patch',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.patch(
                     {
@@ -388,7 +388,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
               }));
 
               const res = await client.invoke(
-                'feishu_task_tasklist.add_members',
+                'weact_task_tasklist.add_members',
                 (sdk, opts) =>
                   sdk.task.v2.tasklist.addMembers(
                     {
@@ -421,7 +421,7 @@ export function registerFeishuTaskTasklistTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_task_tasklist' },
+    { name: 'weact_task_tasklist' },
   );
 
 }

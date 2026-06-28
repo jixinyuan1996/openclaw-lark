@@ -19,20 +19,20 @@ import { registerUpdateDocTool } from './update';
  */
 export function registerFeishuMcpDocTools(api: OpenClawPluginApi): void {
   if (!api.config) {
-    api.logger.debug?.('feishu_doc: No config available, skipping');
+    api.logger.debug?.('weact_doc: No config available, skipping');
     return;
   }
 
   const accounts = getEnabledLarkAccounts(api.config);
   if (accounts.length === 0) {
-    api.logger.debug?.('feishu_doc: No Feishu accounts configured, skipping');
+    api.logger.debug?.('weact_doc: No Feishu accounts configured, skipping');
     return;
   }
 
   // 沿用现有 doc 开关：若所有账户都关闭 doc 工具，则 MCP doc 工具也不注册
   const toolsCfg = resolveAnyEnabledToolsConfig(accounts);
   if (!toolsCfg.doc) {
-    api.logger.debug?.('feishu_doc: doc tool disabled in all accounts');
+    api.logger.debug?.('weact_doc: doc tool disabled in all accounts');
     return;
   }
 
@@ -42,10 +42,10 @@ export function registerFeishuMcpDocTools(api: OpenClawPluginApi): void {
 
   // 注册工具（search/list 已由 OAPI 版本替代，不再注册）
   const registered: string[] = [];
-  if (registerFetchDocTool(api)) registered.push('feishu_fetch_doc');
-  if (registerCreateDocTool(api)) registered.push('feishu_create_doc');
-  if (registerUpdateDocTool(api)) registered.push('feishu_update_doc');
+  if (registerFetchDocTool(api)) registered.push('weact_fetch_doc');
+  if (registerCreateDocTool(api)) registered.push('weact_create_doc');
+  if (registerUpdateDocTool(api)) registered.push('weact_update_doc');
   if (registered.length > 0) {
-    api.logger.debug?.(`feishu_doc: Registered ${registered.join(', ')}`);
+    api.logger.debug?.(`weact_doc: Registered ${registered.join(', ')}`);
   }
 }

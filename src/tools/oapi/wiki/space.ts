@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_wiki_space tool -- Manage Feishu Wiki spaces.
+ * weact_wiki_space tool -- Manage Feishu Wiki spaces.
  *
  * Actions: list, get, create
  *
@@ -98,15 +98,15 @@ export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_wiki_space');
+  const { toolClient, log } = createToolContext(api, 'weact_wiki_space');
 
   return registerTool(
     api,
     {
-      name: 'feishu_wiki_space',
+      name: 'weact_wiki_space',
       label: 'Feishu Wiki Spaces',
       description:
-        '飞书知识空间管理工具。当用户要求查看知识库列表、获取知识库信息、创建知识库时使用。Actions: list（列出知识空间）, get（获取知识空间信息）, create（创建知识空间）。' +
+        'WeAct知识空间管理工具。当用户要求查看知识库列表、获取知识库信息、创建知识库时使用。Actions: list（列出知识空间）, get（获取知识空间信息）, create（创建知识空间）。' +
         '【重要】space_id 可以从浏览器 URL 中获取，或通过 list 接口获取。' +
         '【重要】知识空间（Space）是知识库的基本组成单位，包含多个具有层级关系的文档节点。',
       parameters: FeishuWikiSpaceSchema,
@@ -123,7 +123,7 @@ export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
               log.info(`list: page_size=${p.page_size ?? 10}`);
 
               const res = await client.invoke(
-                'feishu_wiki_space.list',
+                'weact_wiki_space.list',
                 (sdk, opts) =>
                   sdk.wiki.space.list(
                     {
@@ -156,7 +156,7 @@ export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
               log.info(`get: space_id=${p.space_id}`);
 
               const res = await client.invoke(
-                'feishu_wiki_space.get',
+                'weact_wiki_space.get',
                 (sdk, opts) =>
                   sdk.wiki.space.get(
                     {
@@ -182,7 +182,7 @@ export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
               log.info(`create: name=${p.name ?? '(empty)'}, description=${p.description ?? '(empty)'}`);
 
               const res = await client.invoke(
-                'feishu_wiki_space.create',
+                'weact_wiki_space.create',
                 (sdk, opts) =>
                   sdk.wiki.space.create(
                     {
@@ -210,6 +210,6 @@ export function registerFeishuWikiSpaceTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_wiki_space' },
+    { name: 'weact_wiki_space' },
   );
 }

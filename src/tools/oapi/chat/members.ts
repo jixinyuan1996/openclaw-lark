@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_chat_members tool -- 获取群成员列表
+ * weact_chat_members tool -- 获取群成员列表
  *
  * 获取指定群组的成员信息，包括成员名字与 ID
  * 使用 sdk.im.v1.chatMembers.get 接口
@@ -19,7 +19,7 @@ import type { ChatMemberListData } from '../sdk-types';
 
 const ChatMembersSchema = Type.Object({
   chat_id: Type.String({
-    description: '群 ID（格式如 oc_xxx）。' + '可以通过 feishu_chat_search 工具搜索获取',
+    description: '群 ID（格式如 oc_xxx）。' + '可以通过 weact_chat_search 工具搜索获取',
   }),
   member_id_type: Type.Optional(
     StringEnum(['open_id', 'union_id', 'user_id']),
@@ -56,12 +56,12 @@ export function registerChatMembersTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_chat_members');
+  const { toolClient, log } = createToolContext(api, 'weact_chat_members');
 
   return registerTool(
     api,
     {
-      name: 'feishu_chat_members',
+      name: 'weact_chat_members',
       label: 'Feishu: Get Chat Members',
       description:
         '以用户的身份获取指定群组的成员列表。' +
@@ -76,7 +76,7 @@ export function registerChatMembersTool(api: OpenClawPluginApi): boolean {
           log.info(`chat_members: chat_id="${p.chat_id}", page_size=${p.page_size ?? 20}`);
 
           const res = await client.invoke(
-            'feishu_chat_members.default',
+            'weact_chat_members.default',
             (sdk, opts) =>
               sdk.im.v1.chatMembers.get(
                 {
@@ -117,6 +117,6 @@ export function registerChatMembersTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_chat_members' },
+    { name: 'weact_chat_members' },
   );
 }

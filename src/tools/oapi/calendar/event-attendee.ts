@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_calendar_event_attendee tool -- Manage Feishu calendar event attendees.
+ * weact_calendar_event_attendee tool -- Manage Feishu calendar event attendees.
  *
  * P0 Actions: create, list
  *
@@ -109,15 +109,15 @@ export function registerFeishuCalendarEventAttendeeTool(api: OpenClawPluginApi):
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_calendar_event_attendee');
+  const { toolClient, log } = createToolContext(api, 'weact_calendar_event_attendee');
 
   registerTool(
     api,
     {
-      name: 'feishu_calendar_event_attendee',
+      name: 'weact_calendar_event_attendee',
       label: 'Feishu Calendar Event Attendees',
       description:
-        '飞书日程参会人管理工具。当用户要求邀请/添加参会人、查看参会人列表时使用。Actions: create（添加参会人）, list（查询参会人列表）。',
+        'WeAct日程参会人管理工具。当用户要求邀请/添加参会人、查看参会人列表时使用。Actions: create（添加参会人）, list（查询参会人列表）。',
       parameters: FeishuCalendarEventAttendeeSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuCalendarEventAttendeeParams;
@@ -160,7 +160,7 @@ export function registerFeishuCalendarEventAttendeeTool(api: OpenClawPluginApi):
               });
 
               const res = await client.invoke(
-                'feishu_calendar_event.create',
+                'weact_calendar_event.create',
                 (sdk, opts) =>
                   sdk.calendar.calendarEventAttendee.create(
                     {
@@ -196,7 +196,7 @@ export function registerFeishuCalendarEventAttendeeTool(api: OpenClawPluginApi):
               log.info(`list: calendar_id=${p.calendar_id}, event_id=${p.event_id}, page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event_attendee.list',
+                'weact_calendar_event_attendee.list',
                 (sdk, opts) =>
                   sdk.calendar.calendarEventAttendee.list(
                     {
@@ -232,7 +232,7 @@ export function registerFeishuCalendarEventAttendeeTool(api: OpenClawPluginApi):
         }
       },
     },
-    { name: 'feishu_calendar_event_attendee' },
+    { name: 'weact_calendar_event_attendee' },
   );
 
 }

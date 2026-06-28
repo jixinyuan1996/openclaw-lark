@@ -9,13 +9,13 @@
  * ## 三个核心概念
  *
  * ### 1. Required Scopes（API 需要的权限）
- * - 定义：每个 API 调用所需的飞书权限列表
+ * - 定义：每个 API 调用所需的WeAct权限列表
  * - 来源：tool-scopes.ts（手动维护的类型化配置）
  * - 示例：`["calendar:calendar.event:create", "calendar:calendar.event:update"]`
  * - 用途：判断应用和用户是否需要申请/授权权限
  *
  * ### 2. App Granted Scopes（应用已开通的权限）
- * - 定义：应用在飞书开放平台配置并获得管理员批准的权限
+ * - 定义：应用在WeAct开放平台配置并获得管理员批准的权限
  * - 来源：通过 API 查询 `/open-apis/application/v6/applications`
  * - 作用：应用级权限前置检查，避免无效的用户授权请求
  * - 检查时机：在请求用户授权前
@@ -51,12 +51,12 @@ export { TOOL_SCOPES };
 /**
  * 获取单个工具动作所需的 scopes（Required Scopes）
  *
- * @param toolAction - 工具动作键（例如 "feishu_calendar_event.create"）
+ * @param toolAction - 工具动作键（例如 "weact_calendar_event.create"）
  * @returns API 需要的 scope 字符串数组
  *
  * @example
  * ```ts
- * const requiredScopes = getRequiredScopes("feishu_calendar_event.create");
+ * const requiredScopes = getRequiredScopes("weact_calendar_event.create");
  * // 返回: ["calendar:calendar.event:create", "calendar:calendar.event:update"]
  * ```
  */
@@ -73,8 +73,8 @@ export function getRequiredScopes(toolAction: ToolActionKey): string[] {
  * @example
  * ```ts
  * const requiredScopes = getRequiredScopesForActions([
- *   "feishu_calendar_event.create",
- *   "feishu_calendar_event.list"
+ *   "weact_calendar_event.create",
+ *   "weact_calendar_event.list"
  * ]);
  * // 返回两个动作的所有唯一 scopes
  * ```
@@ -98,8 +98,8 @@ export function getRequiredScopesForActions(toolActions: ToolActionKey[]): strin
  *
  * @example
  * ```ts
- * hasRequiredScopes("feishu_calendar_event.create"); // true
- * hasRequiredScopes("feishu_sheets_spreadsheet.create"); // false (空数组)
+ * hasRequiredScopes("weact_calendar_event.create"); // true
+ * hasRequiredScopes("weact_sheets_spreadsheet.create"); // false (空数组)
  * ```
  */
 export function hasRequiredScopes(toolAction: ToolActionKey): boolean {
@@ -115,7 +115,7 @@ export function hasRequiredScopes(toolAction: ToolActionKey): boolean {
  * @example
  * ```ts
  * const actions = getActionsForScope("calendar:calendar.event:create");
- * // 返回: ["feishu_calendar_event.create"]
+ * // 返回: ["weact_calendar_event.create"]
  * ```
  */
 export function getActionsForScope(scope: string): ToolActionKey[] {
@@ -145,10 +145,10 @@ export function getActionsForScope(scope: string): ToolActionKey[] {
  *   "calendar:calendar.event:create",
  *   "calendar:calendar.event:update"
  * ]);
- * checkAppScopes("feishu_calendar_event.create", appScopes); // true
+ * checkAppScopes("weact_calendar_event.create", appScopes); // true
  *
  * const partialAppScopes = new Set(["calendar:calendar.event:create"]);
- * checkAppScopes("feishu_calendar_event.create", partialAppScopes); // false
+ * checkAppScopes("weact_calendar_event.create", partialAppScopes); // false
  * ```
  */
 export function checkAppScopes(toolAction: ToolActionKey, appGrantedScopes: Set<string> | string[]): boolean {
@@ -174,7 +174,7 @@ export function checkAppScopes(toolAction: ToolActionKey, appGrantedScopes: Set<
  * @example
  * ```ts
  * const appScopes = new Set(["calendar:calendar.event:create"]);
- * const missing = getMissingAppScopes("feishu_calendar_event.create", appScopes);
+ * const missing = getMissingAppScopes("weact_calendar_event.create", appScopes);
  * // 返回: ["calendar:calendar.event:update"]
  * ```
  */
@@ -200,10 +200,10 @@ export function getMissingAppScopes(toolAction: ToolActionKey, appGrantedScopes:
  *   "calendar:calendar.event:create",
  *   "calendar:calendar.event:update"
  * ]);
- * checkUserScopes("feishu_calendar_event.create", userScopes); // true
+ * checkUserScopes("weact_calendar_event.create", userScopes); // true
  *
  * const partialUserScopes = new Set(["calendar:calendar.event:create"]);
- * checkUserScopes("feishu_calendar_event.create", partialUserScopes); // false
+ * checkUserScopes("weact_calendar_event.create", partialUserScopes); // false
  * ```
  */
 export function checkUserScopes(toolAction: ToolActionKey, userGrantedScopes: Set<string> | string[]): boolean {
@@ -229,7 +229,7 @@ export function checkUserScopes(toolAction: ToolActionKey, userGrantedScopes: Se
  * @example
  * ```ts
  * const userScopes = new Set(["calendar:calendar.event:create"]);
- * const missing = getMissingUserScopes("feishu_calendar_event.create", userScopes);
+ * const missing = getMissingUserScopes("weact_calendar_event.create", userScopes);
  * // 返回: ["calendar:calendar.event:update"]
  * ```
  */

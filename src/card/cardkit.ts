@@ -20,7 +20,7 @@ const log = larkLogger('card/cardkit');
 // ---------------------------------------------------------------------------
 
 /**
- * 飞书 CardKit SDK 响应的通用结构。
+ * WeAct CardKit SDK 响应的通用结构。
  * SDK 的 TypeScript 类型定义不包含 code/msg 字段，但运行时实际返回。
  * 使用此接口代替 `as any` 以获得类型安全的字段访问。
  */

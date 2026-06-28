@@ -2,10 +2,10 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_doc_media tool -- 文档媒体管理（插入 + 下载）
+ * weact_doc_media tool -- 文档媒体管理（插入 + 下载）
  *
  * Actions:
- *   insert   - 在飞书文档末尾插入本地图片或文件（3 步流程）
+ *   insert   - 在WeAct文档末尾插入本地图片或文件（3 步流程）
  *   download - 下载文档素材或画板缩略图到本地
  *
  * 使用以下 SDK 接口:
@@ -207,7 +207,7 @@ async function handleInsert(
 
   // 2. 创建空 Block（追加到文档末尾）
   const createRes: any = await client.invoke(
-    'feishu_doc_media.insert',
+    'weact_doc_media.insert',
     (sdk, opts) =>
       (sdk.docx.documentBlockChildren as any).create(
         {
@@ -244,7 +244,7 @@ async function handleInsert(
 
   // 3. 上传素材
   const uploadRes: any = await client.invoke(
-    'feishu_doc_media.insert',
+    'weact_doc_media.insert',
     (sdk, opts) =>
       (sdk.drive.v1.media as any).uploadAll(
         {
@@ -305,7 +305,7 @@ async function handleInsert(
   }
 
   const patchRes: any = await client.invoke(
-    'feishu_doc_media.insert',
+    'weact_doc_media.insert',
     (sdk, opts) =>
       sdk.docx.documentBlock.batchUpdate(
         {
@@ -340,13 +340,13 @@ async function handleDownload(
   let res: any;
   if (p.resource_type === 'media') {
     res = await client.invoke(
-      'feishu_doc_media.download',
+      'weact_doc_media.download',
       (sdk, opts) => sdk.drive.v1.media.download({ path: { file_token: p.resource_token } }, opts),
       { as: 'user' },
     );
   } else {
     res = await client.invoke(
-      'feishu_doc_media.download',
+      'weact_doc_media.download',
       (sdk, opts) => sdk.board.v1.whiteboard.downloadAsImage({ path: { whiteboard_id: p.resource_token } }, opts),
       { as: 'user' },
     );
@@ -405,17 +405,17 @@ export function registerDocMediaTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_doc_media');
+  const { toolClient, log } = createToolContext(api, 'weact_doc_media');
 
   return registerTool(
     api,
     {
-      name: 'feishu_doc_media',
+      name: 'weact_doc_media',
       label: 'Feishu: Document Media',
       description:
         '【以用户身份】文档媒体管理工具。' +
         '支持两种操作：' +
-        '(1) insert - 在飞书文档末尾插入本地图片或文件（需要文档 ID + 本地文件路径）；' +
+        '(1) insert - 在WeAct文档末尾插入本地图片或文件（需要文档 ID + 本地文件路径）；' +
         '(2) download - 下载文档素材或画板缩略图到本地（需要资源 token + 输出路径）。' +
         '\n\n【重要】insert 仅支持本地文件路径。URL 图片请使用 create-doc/update-doc 的 <image url="..."/> 语法。',
       parameters: DocMediaSchema,
@@ -435,6 +435,6 @@ export function registerDocMediaTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_doc_media' },
+    { name: 'weact_doc_media' },
   );
 }

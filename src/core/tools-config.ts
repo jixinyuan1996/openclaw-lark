@@ -101,7 +101,7 @@ export function resolveAnyEnabledToolsConfig(accounts: LarkAccount[]): Required<
 
 /**
  * Check whether a string matches any of the given patterns.
- * Supports trailing `*` as a simple wildcard (e.g., `feishu_calendar_*`).
+ * Supports trailing `*` as a simple wildcard (e.g., `weact_calendar_*`).
  */
 function matchesAnyPattern(value: string, patterns: string[]): boolean {
   for (const pattern of patterns) {
@@ -121,17 +121,17 @@ function matchesAnyPattern(value: string, patterns: string[]): boolean {
  * 从 `channels.feishu.tools.deny` 读取禁用列表，支持通配符模式。
  *
  * @param cfg - OpenClaw 配置对象
- * @param toolName - 工具名称（如 `feishu_im_user_message`）
+ * @param toolName - 工具名称（如 `weact_im_user_message`）
  * @returns `true` 如果应该注册，`false` 如果应该跳过
  *
  * @example
  * ```typescript
  * // 配置示例：
- * // channels.feishu.tools.deny: ["feishu_im_user_message", "feishu_calendar_*"]
+ * // channels.feishu.tools.deny: ["weact_im_user_message", "weact_calendar_*"]
  *
- * shouldRegisterTool(cfg, "feishu_im_user_message")  // false
- * shouldRegisterTool(cfg, "feishu_calendar_event")   // false (匹配通配符)
- * shouldRegisterTool(cfg, "feishu_task_task")        // true
+ * shouldRegisterTool(cfg, "weact_im_user_message")  // false
+ * shouldRegisterTool(cfg, "weact_calendar_event")   // false (匹配通配符)
+ * shouldRegisterTool(cfg, "weact_task_task")        // true
  * ```
  */
 export function shouldRegisterTool(cfg: ClawdbotConfig, toolName: string): boolean {

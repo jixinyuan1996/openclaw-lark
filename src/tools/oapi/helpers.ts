@@ -60,12 +60,12 @@ import type { ToolResult } from '../helpers';
 import { createClientGetter, formatToolResult } from '../helpers';
 
 /**
- * 从配置直接创建飞书客户端（OAPI 工具常用模式）
+ * 从配置直接创建WeAct客户端（OAPI 工具常用模式）
  *
  * 这是对 createClientGetter 的简化封装，直接返回客户端实例而非 getter 函数。
  *
  * @param config - OpenClaw 配置对象
- * @returns 飞书 SDK 客户端实例
+ * @returns WeAct SDK 客户端实例
  * @throws 如果没有启用的账号
  *
  * @example
@@ -397,13 +397,13 @@ export function unixTimestampToISO8601(raw: string | number | undefined): string
 }
 
 // ---------------------------------------------------------------------------
-// OAPI 专用：飞书 API 错误处理
+// OAPI 专用：WeAct API 错误处理
 // ---------------------------------------------------------------------------
 
 /**
- * Re-export 飞书 API 错误处理函数
+ * Re-export WeAct API 错误处理函数
  *
- * 这些函数专门用于处理飞书 Open API 的响应和错误。
+ * 这些函数专门用于处理WeAct Open API 的响应和错误。
  */
 export { assertLarkOk, formatLarkError } from '../../core/api-error';
 

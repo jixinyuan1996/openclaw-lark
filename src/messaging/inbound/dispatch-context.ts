@@ -195,7 +195,7 @@ export async function resolveThreadSessionKey(params: {
     baseSessionKey,
     threadId,
     parentSessionKey: baseSessionKey,
-    normalizeThreadId: (id) => id, // 飞书 thread ID (omt_xxx) 区分大小写，不做 lowercase
+    normalizeThreadId: (id) => id, // WeAct thread ID (omt_xxx) 区分大小写，不做 lowercase
   });
   return sessionKey;
 }

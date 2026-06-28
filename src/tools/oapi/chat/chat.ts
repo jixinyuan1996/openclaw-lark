@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_chat tool -- 管理飞书群聊
+ * weact_chat tool -- 管理WeAct群聊
  *
  * Actions:
  *   - search: 搜索对用户或机器人可见的群列表
@@ -87,15 +87,15 @@ export function registerChatSearchTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_chat');
+  const { toolClient, log } = createToolContext(api, 'weact_chat');
 
   return registerTool(
     api,
     {
-      name: 'feishu_chat',
+      name: 'weact_chat',
       label: 'Feishu: Chat Management',
       description:
-        '以用户身份调用飞书群聊管理工具。Actions: search（搜索群列表，支持关键词匹配群名称、群成员）, get（获取指定群的详细信息，包括群名称、描述、头像、群主、权限配置等）。',
+        '以用户身份调用WeAct群聊管理工具。Actions: search（搜索群列表，支持关键词匹配群名称、群成员）, get（获取指定群的详细信息，包括群名称、描述、头像、群主、权限配置等）。',
       parameters: FeishuChatSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as FeishuChatParams;
@@ -110,7 +110,7 @@ export function registerChatSearchTool(api: OpenClawPluginApi): boolean {
               log.info(`search: query="${p.query}", page_size=${p.page_size ?? 20}`);
 
               const res = await client.invoke(
-                'feishu_chat.search',
+                'weact_chat.search',
                 (sdk, opts) =>
                   sdk.im.v1.chat.search(
                     {
@@ -145,7 +145,7 @@ export function registerChatSearchTool(api: OpenClawPluginApi): boolean {
               log.info(`get: chat_id=${p.chat_id}, user_id_type=${p.user_id_type ?? 'open_id'}`);
 
               const res = await client.invoke(
-                'feishu_chat.get',
+                'weact_chat.get',
                 (sdk, opts) =>
                   sdk.im.v1.chat.get(
                     {
@@ -182,6 +182,6 @@ export function registerChatSearchTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_chat' },
+    { name: 'weact_chat' },
   );
 }

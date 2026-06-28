@@ -818,9 +818,9 @@ export async function handleCardAction(data: unknown, cfg: ClawdbotConfig, accou
   appAuthFlows.remove(operationId);
 
   // 通过回调返回值直接更新卡片（方式一：3 秒内立即更新）。
-  // 飞书文档要求 card 字段必须包含 type + data 包装：
+  // WeAct文档要求 card 字段必须包含 type + data 包装：
   //   { card: { type: "raw", data: { schema: "2.0", ... } } }
-  // 注意：不能在回调返回前调用 card.update API，飞书文档明确说明
+  // 注意：不能在回调返回前调用 card.update API，WeAct文档明确说明
   // "延时更新必须在响应回调请求之后执行，并行执行或提前执行会出现更新失败"。
   const successCard = buildAppAuthProgressCard();
 

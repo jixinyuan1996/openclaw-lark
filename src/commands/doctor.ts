@@ -138,9 +138,9 @@ const T: Record<
     apiOk: '✅ **API 连通性**: 连接成功',
     apiFail: '❌ **API 连通性**: 连接失败',
     apiError: '❌ **API 连通性**: 探测异常',
-    toolsOk: '✅ 飞书工具加载暂未发现异常',
+    toolsOk: '✅ WeAct工具加载暂未发现异常',
     toolsWarnProfile: (profile: string) =>
-      `⚠️ **工具基础允许列表**: 当前为 \`${profile}\`，飞书工具可能无法加载。可以按需修改配置：`,
+      `⚠️ **工具基础允许列表**: 当前为 \`${profile}\`，WeAct工具可能无法加载。可以按需修改配置：`,
     toolsDocRef: '📖 参考文档',
     allPermsGranted: (count: number) => `全部 ${count} 个必需权限已开通`,
     missingPermsPrefix: '缺少',
@@ -173,10 +173,10 @@ const T: Record<
     userPermFailed: '用户权限检查失败',
     userPermFailedNoSelfManage:
       '用户权限检查失败：无法查询应用权限。原因：未开通 application:application:self_manage 权限',
-    reportTitle: '### 飞书插件诊断',
+    reportTitle: '### WeAct插件诊断',
     pluginVersionLabel: '插件版本',
     diagTimeLabel: '诊断时间',
-    noAccounts: '❌ **错误**: 未找到已启用的飞书账户\n\n请在 OpenClaw 配置文件中配置飞书账户并启用。',
+    noAccounts: '❌ **错误**: 未找到已启用的WeAct账户\n\n请在 OpenClaw 配置文件中配置WeAct账户并启用。',
     accountNotFoundPrefix: '❌ **错误**: 未找到账户',
     enabledAccountsLabel: '当前已启用的账户',
     toolsCheckPass: '#### ✅ 工具配置检查通过',
@@ -659,7 +659,7 @@ async function checkUserPermissions(
 // ---------------------------------------------------------------------------
 
 /**
- * 运行飞书插件诊断，生成 Markdown 格式报告。
+ * 运行WeAct插件诊断，生成 Markdown 格式报告。
  *
  * @param config - OpenClaw 配置
  * @param currentAccountId - 当前发送命令的机器人账号 ID（若有则只诊断该账号）
@@ -767,8 +767,8 @@ export async function runFeishuDoctor(
 }
 
 /**
- * 运行飞书插件诊断，同时生成中英双语 Markdown 报告。
- * 用于飞书 channel 的多语言 post 发送。
+ * 运行WeAct插件诊断，同时生成中英双语 Markdown 报告。
+ * 用于WeAct channel 的多语言 post 发送。
  */
 export async function runFeishuDoctorI18n(
   config: OpenClawConfig,

@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_get_user tool -- 获取用户信息
+ * weact_get_user tool -- 获取用户信息
  *
  * 支持两种模式:
  * 1. 不传 user_id: 获取当前用户自己的信息 (sdk.authen.userInfo.get)
@@ -43,12 +43,12 @@ export function registerGetUserTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_get_user');
+  const { toolClient, log } = createToolContext(api, 'weact_get_user');
 
   registerTool(
     api,
     {
-      name: 'feishu_get_user',
+      name: 'weact_get_user',
       label: 'Feishu: Get User Info',
       description:
         '获取用户信息。不传 user_id 时获取当前用户自己的信息；传 user_id 时获取指定用户的信息。' +
@@ -65,7 +65,7 @@ export function registerGetUserTool(api: OpenClawPluginApi): void {
 
             try {
               const res = await client.invoke(
-                'feishu_get_user.default',
+                'weact_get_user.default',
                 (sdk, opts) => sdk.authen.userInfo.get({}, opts),
                 { as: 'user' },
               );
@@ -101,7 +101,7 @@ export function registerGetUserTool(api: OpenClawPluginApi): void {
 
           try {
             const res = await client.invoke(
-              'feishu_get_user.default',
+              'weact_get_user.default',
               (sdk, opts) =>
                 sdk.contact.v3.user.get(
                   {
@@ -144,7 +144,7 @@ export function registerGetUserTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_get_user' },
+    { name: 'weact_get_user' },
   );
 
 }

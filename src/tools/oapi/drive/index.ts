@@ -18,28 +18,28 @@ import { registerDocMediaTool } from './doc-media';
  */
 export function registerFeishuDriveTools(api: OpenClawPluginApi): void {
   if (!api.config) {
-    api.logger.debug?.('feishu_drive: No config available, skipping');
+    api.logger.debug?.('weact_drive: No config available, skipping');
     return;
   }
 
   const accounts = getEnabledLarkAccounts(api.config);
   if (accounts.length === 0) {
-    api.logger.debug?.('feishu_drive: No Feishu accounts configured, skipping');
+    api.logger.debug?.('weact_drive: No Feishu accounts configured, skipping');
     return;
   }
 
   const toolsCfg = resolveAnyEnabledToolsConfig(accounts);
   if (!toolsCfg.drive) {
-    api.logger.debug?.('feishu_drive: drive tool disabled in all accounts');
+    api.logger.debug?.('weact_drive: drive tool disabled in all accounts');
     return;
   }
 
   // 注册所有工具
   const registered: string[] = [];
-  if (registerFeishuDriveFileTool(api)) registered.push('feishu_drive_file');
-  if (registerDocCommentsTool(api)) registered.push('feishu_doc_comments');
-  if (registerDocMediaTool(api)) registered.push('feishu_doc_media');
+  if (registerFeishuDriveFileTool(api)) registered.push('weact_drive_file');
+  if (registerDocCommentsTool(api)) registered.push('weact_doc_comments');
+  if (registerDocMediaTool(api)) registered.push('weact_doc_media');
   if (registered.length > 0) {
-    api.logger.debug?.(`feishu_drive: Registered ${registered.join(', ')}`);
+    api.logger.debug?.(`weact_drive: Registered ${registered.join(', ')}`);
   }
 }

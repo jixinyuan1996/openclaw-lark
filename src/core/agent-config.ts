@@ -138,7 +138,7 @@ export function mergeSkillFilters(
  *   2. If `allow` list exists and tool does NOT match → denied.
  *   3. Otherwise → allowed.
  *
- * Supports glob-like patterns with trailing `*` (e.g. `feishu_calendar_*`).
+ * Supports glob-like patterns with trailing `*` (e.g. `weact_calendar_*`).
  *
  * @param toolName - The tool name being invoked.
  * @param policy - The agent's tool policy.

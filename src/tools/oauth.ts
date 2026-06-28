@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_oauth tool — User OAuth authorisation management.
+ * weact_oauth tool — User OAuth authorisation management.
  *
  * Actions:
  *   - authorize : Initiate Device Flow, send auth card, poll for token.
@@ -57,7 +57,7 @@ const FeishuOAuthSchema = Type.Object(
   },
   {
     description:
-      '飞书用户撤销授权工具。' +
+      'WeAct用户撤销授权工具。' +
       '仅在用户明确说"撤销授权"、"取消授权"、"退出登录"、"清除授权"时调用。' +
       '【严禁调用场景】用户说"重新授权"、"发起授权"、"重新发起"、"授权失败"、"授权过期"时，绝对不要调用此工具，授权流程由系统自动处理。',
   },
@@ -142,10 +142,10 @@ export function registerFeishuOAuthTool(api: OpenClawPluginApi): void {
   registerTool(
     api,
     {
-      name: 'feishu_oauth',
+      name: 'weact_oauth',
       label: 'Feishu OAuth',
       description:
-        '飞书用户撤销授权工具。' +
+        'WeAct用户撤销授权工具。' +
         '仅在用户明确说"撤销授权"、"取消授权"、"退出登录"、"清除授权"时调用 revoke。' +
         '【严禁调用场景】用户说"重新授权"、"发起授权"、"重新发起"、"授权失败"、"授权过期"时，绝对不要调用此工具，授权流程由系统自动处理，无需人工干预。' +
         '不需要传入 user_open_id，系统自动从消息上下文获取当前用户。',
@@ -159,7 +159,7 @@ export function registerFeishuOAuthTool(api: OpenClawPluginApi): void {
         const senderOpenId = ticket?.senderOpenId;
         if (!senderOpenId) {
           return json({
-            error: '无法获取当前用户身份（senderOpenId），请在飞书对话中使用此工具。',
+            error: '无法获取当前用户身份（senderOpenId），请在WeAct对话中使用此工具。',
           });
         }
 
@@ -225,14 +225,14 @@ export function registerFeishuOAuthTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_oauth' },
+    { name: 'weact_oauth' },
   );
 
-  api.logger.debug?.('feishu_oauth: Registered feishu_oauth tool');
+  api.logger.debug?.('weact_oauth: Registered weact_oauth tool');
 }
 
 // ---------------------------------------------------------------------------
-// Shared authorize logic (used by both feishu_oauth and feishu_oauth_batch_auth)
+// Shared authorize logic (used by both weact_oauth and weact_oauth_batch_auth)
 // ---------------------------------------------------------------------------
 
 export interface ExecuteAuthorizeParams {
@@ -253,7 +253,7 @@ export interface ExecuteAuthorizeParams {
 
 /**
  * 执行 OAuth 授权流程（Device Flow）
- * 可被 feishu_oauth 和 feishu_oauth_batch_auth 共享调用
+ * 可被 weact_oauth 和 weact_oauth_batch_auth 共享调用
  */
 export async function executeAuthorize(
   params: ExecuteAuthorizeParams,
@@ -305,10 +305,10 @@ export async function executeAuthorize(
       const missingScopes = requestedScopes.filter((s) => !grantedScopes.has(s));
 
       if (missingScopes.length > 0) {
-        // scope 不足 → 继续走 Device Flow（飞书 OAuth 是增量授权）
+        // scope 不足 → 继续走 Device Flow（WeAct OAuth 是增量授权）
         log.info(`existing token missing scopes [${missingScopes.join(', ')}], starting incremental auth`);
         // 不 revoke 旧 token，直接用缺失的 scope 发起新 Device Flow
-        // 飞书会累积授权，新 token 包含旧 + 新 scope
+        // WeAct会累积授权，新 token 包含旧 + 新 scope
         // 继续执行下面的 Device Flow 逻辑
       } else {
         if (onAuthComplete) {
@@ -632,7 +632,7 @@ export async function executeAuthorize(
               accountId,
               chatId,
               senderOpenId,
-              text: '我已完成飞书账号授权，请继续执行之前的操作。',
+              text: '我已完成WeAct账号授权，请继续执行之前的操作。',
               syntheticMessageId: syntheticMsgId,
               replyToMessageId: ticket.messageId,
               chatType: ticket.chatType,

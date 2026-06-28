@@ -68,9 +68,9 @@ function validateUpdateDocParams(p: UpdateDocParams): void {
  */
 export function registerUpdateDocTool(api: OpenClawPluginApi): boolean {
   return registerMcpTool<UpdateDocParams>(api, {
-    name: 'feishu_update_doc',
+    name: 'weact_update_doc',
     mcpToolName: 'update-doc',
-    toolActionKey: 'feishu_update_doc.default',
+    toolActionKey: 'weact_update_doc.default',
     label: 'Feishu MCP: update-doc',
     description:
       '更新云文档（overwrite/append/replace_range/replace_all/insert_before/insert_after/delete_range，支持异步 task_id 查询）',

@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * Register all chat commands (/feishu_diagnose, /feishu_doctor, /feishu_auth, /feishu).
+ * Register all chat commands (/weact_diagnose, /weact_doctor, /weact_auth, /feishu).
  */
 
 import type { OpenClawConfig, OpenClawPluginApi } from 'openclaw/plugin-sdk';
@@ -48,11 +48,11 @@ const T: Record<
       'openclaw gateway restart\n' +
       '```',
     toolsProfileWarn: (profile) =>
-      `⚠️ 工具 Profile 当前为 \`${profile}\`，飞书工具可能无法加载。请检查配置是否正确。\n`,
-    startFailed: (details) => `❌ 飞书 OpenClaw 插件启动失败：\n\n${details}`,
-    startWithWarnings: (version, details) => `⚠️ 飞书 OpenClaw 插件已启动 v${version}（存在警告）\n\n${details}`,
-    startOk: (version) => `✅ 飞书 OpenClaw 插件已启动 v${version}`,
-    helpTitle: (version) => `飞书OpenClaw插件 v${version}`,
+      `⚠️ 工具 Profile 当前为 \`${profile}\`，WeAct工具可能无法加载。请检查配置是否正确。\n`,
+    startFailed: (details) => `❌ WeAct OpenClaw 插件启动失败：\n\n${details}`,
+    startWithWarnings: (version, details) => `⚠️ WeAct OpenClaw 插件已启动 v${version}（存在警告）\n\n${details}`,
+    startOk: (version) => `✅ WeAct OpenClaw 插件已启动 v${version}`,
+    helpTitle: (version) => `WeActOpenClaw插件 v${version}`,
     helpUsage: '用法：',
     helpStart: '/feishu start - 校验插件配置',
     helpAuth: '/feishu auth - 批量授权用户权限',
@@ -167,9 +167,9 @@ export function getFeishuHelpI18n(): Record<FeishuLocale, string> {
 // ---------------------------------------------------------------------------
 
 export function registerCommands(api: OpenClawPluginApi): void {
-  // /feishu_diagnose
+  // /weact_diagnose
   api.registerCommand({
-    name: 'feishu_diagnose',
+    name: 'weact_diagnose',
     description: 'Run Feishu plugin diagnostics to check config, connectivity, and permissions',
     acceptsArgs: false,
     requireAuth: true,
@@ -185,9 +185,9 @@ export function registerCommands(api: OpenClawPluginApi): void {
     },
   });
 
-  // /feishu_doctor
+  // /weact_doctor
   api.registerCommand({
-    name: 'feishu_doctor',
+    name: 'weact_doctor',
     description: 'Run Feishu plugin diagnostics',
     acceptsArgs: false,
     requireAuth: true,
@@ -203,9 +203,9 @@ export function registerCommands(api: OpenClawPluginApi): void {
     },
   });
 
-  // /feishu_auth
+  // /weact_auth
   api.registerCommand({
-    name: 'feishu_auth',
+    name: 'weact_auth',
     description: 'Batch authorize user permissions for Feishu',
     acceptsArgs: false,
     requireAuth: true,

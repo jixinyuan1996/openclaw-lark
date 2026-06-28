@@ -25,8 +25,8 @@ const log = larkLogger('core/app-owner-fallback');
  * 复用 app-scope-checker 的 API 调用、缓存和统一 owner 定义（effectiveOwnerOpenId）。
  * 查询失败时返回 undefined（fail-open）。
  *
- * @param account - 已配置的飞书账号信息
- * @param sdk - 飞书 SDK 实例（必须已初始化 TAT）
+ * @param account - 已配置的WeAct账号信息
+ * @param sdk - WeAct SDK 实例（必须已初始化 TAT）
  * @returns 应用所有者的 open_id，如果查询失败则返回 undefined
  */
 export async function getAppOwnerFallback(

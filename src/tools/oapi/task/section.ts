@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_section tool -- Manage Feishu task sections.
+ * weact_task_section tool -- Manage Feishu task sections.
  *
  * P0 Actions: create, get, list, patch, tasks 支持通过 auth_type 参数切换用户(user)或应用(tenant)身份。
  *
@@ -206,15 +206,15 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_task_section');
+  const { toolClient, log } = createToolContext(api, 'weact_task_section');
 
   registerTool(
     api,
     {
-      name: 'feishu_task_section',
+      name: 'weact_task_section',
       label: 'Feishu Task Section Management',
       description:
-        '【以用户或应用身份】飞书任务自定义分组管理工具。用于创建、查询、更新自定义分组，以及列出分组内的任务。Actions: create（创建分组）, get（获取分组详情）, patch（更新分组）, list（获取分组列表）, tasks（获取分组任务列表）。',
+        '【以用户或应用身份】WeAct任务自定义分组管理工具。用于创建、查询、更新自定义分组，以及列出分组内的任务。Actions: create（创建分组）, get（获取分组详情）, patch（更新分组）, list（获取分组列表）, tasks（获取分组任务列表）。',
       parameters: FeishuTaskSectionSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as FeishuTaskSectionParams;
@@ -238,7 +238,7 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
               if (p.insert_after) data.insert_after = p.insert_after;
 
               const res = await client.invoke(
-                'feishu_task_section.create',
+                'weact_task_section.create',
                 (sdk, opts) =>
                   sdk.task.v2.section.create(
                     {
@@ -267,7 +267,7 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
               log.info(`get: section_guid=${p.section_guid}`);
 
               const res = await client.invoke(
-                'feishu_task_section.get',
+                'weact_task_section.get',
                 (sdk, opts) =>
                   sdk.task.v2.section.get(
                     {
@@ -318,7 +318,7 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_section.patch',
+                'weact_task_section.patch',
                 (sdk, opts) =>
                   sdk.task.v2.section.patch(
                     {
@@ -360,7 +360,7 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
               if (p.page_token !== undefined) paramsData.page_token = p.page_token;
 
               const res = await client.invoke(
-                'feishu_task_section.list',
+                'weact_task_section.list',
                 (sdk, opts) =>
                   sdk.task.v2.section.list(
                     {
@@ -408,7 +408,7 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_section.tasks',
+                'weact_task_section.tasks',
                 (sdk, opts) =>
                   sdk.task.v2.section.tasks(
                     {
@@ -436,6 +436,6 @@ export function registerFeishuTaskSectionTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_task_section' },
+    { name: 'weact_task_section' },
   );
 }

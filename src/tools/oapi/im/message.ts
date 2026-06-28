@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_im_user_message tool -- 以用户身份发送/回复 IM 消息
+ * weact_im_user_message tool -- 以用户身份发送/回复 IM 消息
  *
  * Actions: send, reply
  *
@@ -117,15 +117,15 @@ type FeishuImMessageParams =
 export function registerFeishuImUserMessageTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
-  const { toolClient, log } = createToolContext(api, 'feishu_im_user_message');
+  const { toolClient, log } = createToolContext(api, 'weact_im_user_message');
 
   return registerTool(
     api,
     {
-      name: 'feishu_im_user_message',
+      name: 'weact_im_user_message',
       label: 'Feishu: IM User Message',
       description:
-        '飞书用户身份 IM 消息工具。**有且仅当用户明确要求以自己身份发消息、回复消息时使用，当没有明确要求时优先使用message系统工具**。' +
+        'WeAct用户身份 IM 消息工具。**有且仅当用户明确要求以自己身份发消息、回复消息时使用，当没有明确要求时优先使用message系统工具**。' +
         '\n\nActions:' +
         '\n- send（发送消息）：发送消息到私聊或群聊。私聊用 receive_id_type=open_id，群聊用 receive_id_type=chat_id' +
         '\n- reply（回复消息）：回复指定 message_id 的消息，支持话题回复（reply_in_thread=true）' +
@@ -149,7 +149,7 @@ export function registerFeishuImUserMessageTool(api: OpenClawPluginApi): boolean
                 `send: receive_id_type=${p.receive_id_type}, receive_id=${p.receive_id}, msg_type=${p.msg_type}`,
               );
               const res = await client.invoke(
-                'feishu_im_user_message.send',
+                'weact_im_user_message.send',
                 (sdk, opts) =>
                   sdk.im.v1.message.create(
                     {
@@ -188,7 +188,7 @@ export function registerFeishuImUserMessageTool(api: OpenClawPluginApi): boolean
                 `reply: message_id=${p.message_id}, msg_type=${p.msg_type}, reply_in_thread=${p.reply_in_thread ?? false}`,
               );
               const res = await client.invoke(
-                'feishu_im_user_message.reply',
+                'weact_im_user_message.reply',
                 (sdk, opts) =>
                   sdk.im.v1.message.reply(
                     {
@@ -224,6 +224,6 @@ export function registerFeishuImUserMessageTool(api: OpenClawPluginApi): boolean
         }
       },
     },
-    { name: 'feishu_im_user_message' },
+    { name: 'weact_im_user_message' },
   );
 }

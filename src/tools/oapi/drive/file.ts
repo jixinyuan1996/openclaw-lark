@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_drive_file tool -- Manage Feishu Drive files.
+ * weact_drive_file tool -- Manage Feishu Drive files.
  *
  * Actions: list, get_meta, copy, move, delete, upload, download
  *
@@ -300,15 +300,15 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_drive_file');
+  const { toolClient, log } = createToolContext(api, 'weact_drive_file');
 
   return registerTool(
     api,
     {
-      name: 'feishu_drive_file',
+      name: 'weact_drive_file',
       label: 'Feishu Drive Files',
       description:
-        '【以用户身份】飞书云空间文件管理工具。当用户要求查看云空间(云盘)中的文件列表、获取文件信息、复制/移动/删除文件、上传/下载文件时使用。消息中的文件读写**禁止**使用该工具!' +
+        '【以用户身份】WeAct云空间文件管理工具。当用户要求查看云空间(云盘)中的文件列表、获取文件信息、复制/移动/删除文件、上传/下载文件时使用。消息中的文件读写**禁止**使用该工具!' +
         '\n\nActions:' +
         '\n- list（列出文件）：列出文件夹下的文件。不提供 folder_token 时获取根目录清单' +
         "\n- get_meta（批量获取元数据）：批量查询文档元信息，使用 request_docs 数组参数，格式：[{doc_token: '...', doc_type: 'sheet'}]" +
@@ -334,7 +334,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               log.info(`list: folder_token=${p.folder_token || '(root)'}, page_size=${p.page_size ?? 200}`);
 
               const res = await client.invoke(
-                'feishu_drive_file.list',
+                'weact_drive_file.list',
                 (sdk, opts) =>
                   sdk.drive.file.list(
                     {
@@ -376,7 +376,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               log.info(`get_meta: querying ${p.request_docs.length} documents`);
 
               const res = await client.invoke(
-                'feishu_drive_file.get_meta',
+                'weact_drive_file.get_meta',
                 (sdk, opts) =>
                   sdk.drive.meta.batchQuery(
                     {
@@ -409,7 +409,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               );
 
               const res = await client.invoke(
-                'feishu_drive_file.copy',
+                'weact_drive_file.copy',
                 (sdk, opts) =>
                   sdk.drive.file.copy(
                     {
@@ -441,7 +441,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               log.info(`move: file_token=${p.file_token}, type=${p.type}, folder_token=${p.folder_token}`);
 
               const res = await client.invoke(
-                'feishu_drive_file.move',
+                'weact_drive_file.move',
                 (sdk, opts) =>
                   sdk.drive.file.move(
                     {
@@ -475,7 +475,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               log.info(`delete: file_token=${p.file_token}, type=${p.type}`);
 
               const res = await client.invoke(
-                'feishu_drive_file.delete',
+                'weact_drive_file.delete',
                 (sdk, opts) =>
                   sdk.drive.file.delete(
                     {
@@ -556,7 +556,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
                 log.info(`upload: using upload_all (file size ${fileSize} <= 15MB)`);
 
                 const res: any = await client.invoke(
-                  'feishu_drive_file.upload',
+                  'weact_drive_file.upload',
                   (sdk, opts) =>
                     sdk.drive.file.uploadAll(
                       {
@@ -588,7 +588,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
                 // 1. 预上传
                 log.info(`upload: step 1 - prepare upload`);
                 const prepareRes: any = await client.invoke(
-                  'feishu_drive_file.upload',
+                  'weact_drive_file.upload',
                   (sdk, opts) =>
                     sdk.drive.file.uploadPrepare(
                       {
@@ -625,7 +625,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
                   log.info(`upload: uploading chunk ${seq + 1}/${block_num} (${chunkBuffer.length} bytes)`);
 
                   await client.invoke(
-                    'feishu_drive_file.upload',
+                    'weact_drive_file.upload',
                     (sdk, opts) =>
                       sdk.drive.file.uploadPart(
                         {
@@ -647,7 +647,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
                 // 3. 完成上传
                 log.info(`upload: step 3 - finish upload`);
                 const finishRes: any = await client.invoke(
-                  'feishu_drive_file.upload',
+                  'weact_drive_file.upload',
                   (sdk, opts) =>
                     sdk.drive.file.uploadFinish(
                       {
@@ -681,7 +681,7 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
               log.info(`download: file_token=${p.file_token}`);
 
               const res: any = await client.invoke(
-                'feishu_drive_file.download',
+                'weact_drive_file.download',
                 (sdk, opts) =>
                   sdk.drive.file.download(
                     {
@@ -741,6 +741,6 @@ export function registerFeishuDriveFileTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_drive_file' },
+    { name: 'weact_drive_file' },
   );
 }

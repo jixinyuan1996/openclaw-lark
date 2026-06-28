@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_oauth_batch_auth tool — 批量授权应用已开通的所有用户权限。
+ * weact_oauth_batch_auth tool — 批量授权应用已开通的所有用户权限。
  *
  * 自动识别应用已开通但用户未授权的 scope，一次性发起授权请求。
  * 复用 oauth.ts 的 executeAuthorize() 函数。
@@ -29,7 +29,7 @@ const FeishuOAuthBatchAuthSchema = Type.Object(
   {},
   {
     description:
-      '飞书批量授权工具。一次性授权应用已开通的所有用户权限（User Access Token scope）。' +
+      'WeAct批量授权工具。一次性授权应用已开通的所有用户权限（User Access Token scope）。' +
       "【使用场景】用户明确要求'授权所有权限'、'一次性授权完成'时使用。" +
       '【重要】禁止主动推荐此工具，仅在用户明确要求时使用。',
   },
@@ -43,10 +43,10 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
   registerTool(
     api,
     {
-      name: 'feishu_oauth_batch_auth',
+      name: 'weact_oauth_batch_auth',
       label: 'Feishu: OAuth Batch Authorization',
       description:
-        '飞书批量授权工具，一次性授权应用已开通的所有用户权限。' +
+        'WeAct批量授权工具，一次性授权应用已开通的所有用户权限。' +
         "仅在用户明确要求'授权所有权限'、'一次性授权'时使用。",
       parameters: FeishuOAuthBatchAuthSchema,
 
@@ -56,7 +56,7 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
           const senderOpenId = ticket?.senderOpenId;
           if (!senderOpenId) {
             return json({
-              error: '无法获取当前用户身份（senderOpenId），请在飞书对话中使用此工具。',
+              error: '无法获取当前用户身份（senderOpenId），请在WeAct对话中使用此工具。',
             });
           }
 
@@ -80,7 +80,7 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
                 error: 'app_scope_check_failed',
                 message:
                   `应用缺少核心权限 application:application:self_manage，无法查询可授权 scope 列表。\n\n` +
-                  `请管理员在飞书开放平台开通此权限后重试。`,
+                  `请管理员在WeAct开放平台开通此权限后重试。`,
                 permission_link: `${openPlatformDomain(account.brand)}/app/${appId}/auth?q=application:application:self_manage`,
                 app_id: appId,
               });
@@ -121,7 +121,7 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
             });
           }
 
-          // 7. 飞书限制：单次最多请求 100 个 scope
+          // 7. WeAct限制：单次最多请求 100 个 scope
           const MAX_SCOPES_PER_BATCH = 100;
           let scopesToAuthorize = missingScopes;
           let batchInfo = '';
@@ -131,7 +131,7 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
             scopesToAuthorize = missingScopes.slice(0, MAX_SCOPES_PER_BATCH);
             const remainingCount = missingScopes.length - MAX_SCOPES_PER_BATCH;
             batchInfo =
-              `\n\n由于飞书限制（单次最多 ${MAX_SCOPES_PER_BATCH} 个 scope），` +
+              `\n\n由于WeAct限制（单次最多 ${MAX_SCOPES_PER_BATCH} 个 scope），` +
               `本次将授权前 ${MAX_SCOPES_PER_BATCH} 个权限。\n` +
               `授权完成后，还需授权剩余 ${remainingCount} 个权限`;
           }
@@ -165,13 +165,13 @@ export function registerFeishuOAuthBatchAuthTool(api: OpenClawPluginApi): void {
 
           return result;
         } catch (err) {
-          api.logger.error?.(`feishu_oauth_batch_auth: ${err}`);
+          api.logger.error?.(`weact_oauth_batch_auth: ${err}`);
           return json({ error: formatLarkError(err) });
         }
       },
     },
-    { name: 'feishu_oauth_batch_auth' },
+    { name: 'weact_oauth_batch_auth' },
   );
 
-  api.logger.debug?.('feishu_oauth_batch_auth: Registered feishu_oauth_batch_auth tool');
+  api.logger.debug?.('weact_oauth_batch_auth: Registered weact_oauth_batch_auth tool');
 }

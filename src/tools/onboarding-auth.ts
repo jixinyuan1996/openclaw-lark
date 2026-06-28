@@ -7,7 +7,7 @@
  * 配对后自动发起 OAuth Device Flow，引导应用 owner 完成用户授权。
  * 仅当配对用户 === 应用 owner 时触发。
  *
- * 飞书限制：单次 OAuth 最多 50 个 scope。
+ * WeAct限制：单次 OAuth 最多 50 个 scope。
  * 超过 50 个时自动分批处理，每批授权完成后自动发起下一批（链式触发）。
  */
 

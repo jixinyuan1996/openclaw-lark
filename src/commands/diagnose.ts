@@ -148,21 +148,21 @@ function detectRegisteredTools(config: OpenClawConfig): string[] {
   const toolsCfg = resolveAnyEnabledToolsConfig(accounts);
 
   const tools: string[] = [];
-  if (toolsCfg.doc) tools.push('feishu_doc');
-  if (toolsCfg.scopes) tools.push('feishu_app_scopes');
-  if (toolsCfg.wiki) tools.push('feishu_wiki');
-  if (toolsCfg.drive) tools.push('feishu_drive');
-  if (toolsCfg.perm) tools.push('feishu_perm');
+  if (toolsCfg.doc) tools.push('weact_doc');
+  if (toolsCfg.scopes) tools.push('weact_app_scopes');
+  if (toolsCfg.wiki) tools.push('weact_wiki');
+  if (toolsCfg.drive) tools.push('weact_drive');
+  if (toolsCfg.perm) tools.push('weact_perm');
   tools.push(
-    'feishu_bitable_get_meta',
-    'feishu_bitable_list_fields',
-    'feishu_bitable_list_records',
-    'feishu_bitable_get_record',
-    'feishu_bitable_create_record',
-    'feishu_bitable_update_record',
+    'weact_bitable_get_meta',
+    'weact_bitable_list_fields',
+    'weact_bitable_list_records',
+    'weact_bitable_get_record',
+    'weact_bitable_create_record',
+    'weact_bitable_update_record',
   );
-  tools.push('feishu_task');
-  tools.push('feishu_calendar');
+  tools.push('weact_task');
+  tools.push('weact_calendar');
 
   return tools;
 }
@@ -287,7 +287,7 @@ export async function runDiagnosis(params: { config: OpenClawConfig; logger?: Di
   // -- Account count --
   const accountIds = getLarkAccountIds(globalCfg);
   globalChecks.push({
-    name: '飞书账户数量',
+    name: 'WeAct账户数量',
     status: accountIds.length > 0 ? 'pass' : 'fail',
     message: `${accountIds.length} 个账户`,
   });
@@ -371,7 +371,7 @@ export function formatDiagReportText(report: DiagReport): string {
   const sep = '====================================';
 
   lines.push(sep);
-  lines.push('  飞书插件诊断报告');
+  lines.push('  WeAct插件诊断报告');
   lines.push(`  ${report.timestamp}`);
   lines.push(sep);
   lines.push('');
@@ -880,7 +880,7 @@ export function formatDiagReportCli(report: DiagReport): string {
   const sep = '====================================';
 
   lines.push(sep);
-  lines.push(`  ${ANSI.bold}飞书插件诊断报告${ANSI.reset}`);
+  lines.push(`  ${ANSI.bold}WeAct插件诊断报告${ANSI.reset}`);
   lines.push(`  ${report.timestamp}`);
   lines.push(sep);
   lines.push('');

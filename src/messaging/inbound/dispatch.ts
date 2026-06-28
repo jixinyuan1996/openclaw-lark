@@ -495,8 +495,8 @@ export async function dispatchToAgent(params: {
   // 9a. Intercept /feishu commands for i18n multi-locale card dispatch
   //     Must run BEFORE the SDK command check — the SDK does not recognise
   //     plugin-registered commands via isControlCommandMessage, so
-  //     /feishu_* falls through to the AI agent otherwise.
-  //     Skipped for comment targets: comment text won't match /feishu_*
+  //     /weact_* falls through to the AI agent otherwise.
+  //     Skipped for comment targets: comment text won't match /weact_*
   //     patterns in practice, and sendCardFeishu/sendMessageFeishu can't
   //     deliver to comment:... targets.
   const contentTrimmed = (params.ctx.content ?? '').trim();

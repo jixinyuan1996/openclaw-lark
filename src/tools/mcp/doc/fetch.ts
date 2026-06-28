@@ -36,11 +36,11 @@ type FetchDocParams = Static<typeof FetchDocSchema>;
  */
 export function registerFetchDocTool(api: OpenClawPluginApi): boolean {
   return registerMcpTool<FetchDocParams>(api, {
-    name: 'feishu_fetch_doc',
+    name: 'weact_fetch_doc',
     mcpToolName: 'fetch-doc',
-    toolActionKey: 'feishu_fetch_doc.default',
+    toolActionKey: 'weact_fetch_doc.default',
     label: 'Feishu MCP: fetch-doc',
-    description: '获取飞书云文档内容，返回文档标题和 Markdown 格式内容。支持分页获取大文档。',
+    description: '获取WeAct云文档内容，返回文档标题和 Markdown 格式内容。支持分页获取大文档。',
     schema: FetchDocSchema,
   });
 }

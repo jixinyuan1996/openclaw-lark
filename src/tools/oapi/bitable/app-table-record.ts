@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_bitable_app_table_record tool -- Manage Feishu Bitable records.
+ * weact_bitable_app_table_record tool -- Manage Feishu Bitable records.
  *
  * P0 Actions: create, list, update, delete
  * P1 Actions: batch_create, batch_update, batch_delete
@@ -246,15 +246,15 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_bitable_app_table_record');
+  const { toolClient, log } = createToolContext(api, 'weact_bitable_app_table_record');
 
   registerTool(
     api,
     {
-      name: 'feishu_bitable_app_table_record',
+      name: 'weact_bitable_app_table_record',
       label: 'Feishu Bitable Records',
       description:
-        '【以用户身份】飞书多维表格记录（行）管理工具。当用户要求创建/查询/更新/删除记录、搜索数据时使用。\n\n' +
+        '【以用户身份】WeAct多维表格记录（行）管理工具。当用户要求创建/查询/更新/删除记录、搜索数据时使用。\n\n' +
         'Actions:\n' +
         '- create（创建单条记录，使用 fields 参数）\n' +
         '- batch_create（批量创建记录，使用 records 数组参数）\n' +
@@ -304,7 +304,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               log.info(`create: app_token=${p.app_token}, table_id=${p.table_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.create',
+                'weact_bitable_app_table_record.create',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.create(
                     {
@@ -356,7 +356,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               log.info(`update: app_token=${p.app_token}, table_id=${p.table_id}, record_id=${p.record_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.update',
+                'weact_bitable_app_table_record.update',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.update(
                     {
@@ -392,7 +392,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               log.info(`delete: app_token=${p.app_token}, table_id=${p.table_id}, record_id=${p.record_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.delete',
+                'weact_bitable_app_table_record.delete',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.delete(
                     {
@@ -454,7 +454,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               );
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.batch_create',
+                'weact_bitable_app_table_record.batch_create',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.batchCreate(
                     {
@@ -521,7 +521,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               );
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.batch_update',
+                'weact_bitable_app_table_record.batch_update',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.batchUpdate(
                     {
@@ -570,7 +570,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               );
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.batch_delete',
+                'weact_bitable_app_table_record.batch_delete',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.batchDelete(
                     {
@@ -628,7 +628,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
               if (p.automatic_fields !== undefined) searchData.automatic_fields = p.automatic_fields;
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_record.list',
+                'weact_bitable_app_table_record.list',
                 (sdk, opts) =>
                   sdk.bitable.appTableRecord.search(
                     {
@@ -671,7 +671,7 @@ export function registerFeishuBitableAppTableRecordTool(api: OpenClawPluginApi):
         }
       },
     },
-    { name: 'feishu_bitable_app_table_record' },
+    { name: 'weact_bitable_app_table_record' },
   );
 
 }

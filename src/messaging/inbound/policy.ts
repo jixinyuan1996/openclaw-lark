@@ -107,7 +107,7 @@ export function resolveFeishuGroupConfig(params: {
  *   确保每个账号的 groups / tool policy 配置独立生效。
  */
 export function resolveFeishuGroupToolPolicy(params: ChannelGroupContext): GroupToolPolicyConfig | undefined {
-  // 使用 getLarkAccount 获取 per-account 合并后的飞书渠道配置，
+  // 使用 getLarkAccount 获取 per-account 合并后的WeAct渠道配置，
   // 而非直接读取 cfg.channels.feishu（顶层全局配置）。
   const account = getLarkAccount(params.cfg, params.accountId ?? undefined);
   const accountFeishuCfg = account.config;

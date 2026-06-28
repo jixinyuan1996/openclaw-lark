@@ -39,9 +39,9 @@ function validateCreateDocParams(p: CreateDocParams): void {
  */
 export function registerCreateDocTool(api: OpenClawPluginApi): boolean {
   return registerMcpTool<CreateDocParams>(api, {
-    name: 'feishu_create_doc',
+    name: 'weact_create_doc',
     mcpToolName: 'create-doc',
-    toolActionKey: 'feishu_create_doc.default',
+    toolActionKey: 'weact_create_doc.default',
     label: 'Feishu MCP: create-doc',
     description: '从 Markdown 创建云文档（支持异步 task_id 查询）',
     schema: CreateDocSchema,

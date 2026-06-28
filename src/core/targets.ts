@@ -30,8 +30,8 @@ const TAG_OPEN_ID = 'open_id:';
 // Feishu channel prefix (used by SDK for some routing scenarios).
 const TAG_FEISHU = 'feishu:';
 
-const ROUTE_META_FRAGMENT_REPLY_TO = '__feishu_reply_to';
-const ROUTE_META_FRAGMENT_THREAD_ID = '__feishu_thread_id';
+const ROUTE_META_FRAGMENT_REPLY_TO = '__weact_reply_to';
+const ROUTE_META_FRAGMENT_THREAD_ID = '__weact_thread_id';
 
 // ---------------------------------------------------------------------------
 // Detection

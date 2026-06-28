@@ -16,25 +16,25 @@ import { registerFeishuSearchDocWikiTool } from './doc-search';
  */
 export function registerFeishuSearchTools(api: OpenClawPluginApi): void {
   if (!api.config) {
-    api.logger.debug?.('feishu_search: No config available, skipping');
+    api.logger.debug?.('weact_search: No config available, skipping');
     return;
   }
 
   const accounts = getEnabledLarkAccounts(api.config);
   if (accounts.length === 0) {
-    api.logger.debug?.('feishu_search: No Feishu accounts configured, skipping');
+    api.logger.debug?.('weact_search: No Feishu accounts configured, skipping');
     return;
   }
 
   // search 工具使用 doc 配置项控制，因为搜索是文档相关功能
   const toolsCfg = resolveAnyEnabledToolsConfig(accounts);
   if (!toolsCfg.doc) {
-    api.logger.debug?.('feishu_search: search tool disabled in all accounts (controlled by doc config)');
+    api.logger.debug?.('weact_search: search tool disabled in all accounts (controlled by doc config)');
     return;
   }
 
   // 注册所有工具
   if (registerFeishuSearchDocWikiTool(api)) {
-    api.logger.debug?.('feishu_search: Registered feishu_search_doc_wiki');
+    api.logger.debug?.('weact_search: Registered weact_search_doc_wiki');
   }
 }

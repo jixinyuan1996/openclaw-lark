@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_wiki_space_node tool -- Manage Feishu Wiki space nodes.
+ * weact_wiki_space_node tool -- Manage Feishu Wiki space nodes.
  *
  * Actions: list, get, create, move, copy
  *
@@ -193,15 +193,15 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_wiki_space_node');
+  const { toolClient, log } = createToolContext(api, 'weact_wiki_space_node');
 
   return registerTool(
     api,
     {
-      name: 'feishu_wiki_space_node',
+      name: 'weact_wiki_space_node',
       label: 'Feishu Wiki Space Nodes',
       description:
-        '飞书知识库节点管理工具。操作：list（列表）、get（获取）、create（创建）、move（移动）、copy（复制）。' +
+        'WeAct知识库节点管理工具。操作：list（列表）、get（获取）、create（创建）、move（移动）、copy（复制）。' +
         '节点是知识库中的文档，包括 doc、bitable(多维表表格)、sheet(电子表格) 等类型。' +
         'node_token 是节点的唯一标识符，obj_token 是实际文档的 token。可通过 get 操作将 wiki 类型的 node_token 转换为实际文档的 obj_token。',
       parameters: FeishuWikiSpaceNodeSchema,
@@ -220,7 +220,7 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
               );
 
               const res = await client.invoke(
-                'feishu_wiki_space_node.list',
+                'weact_wiki_space_node.list',
                 (sdk, opts) =>
                   sdk.wiki.spaceNode.list(
                     {
@@ -254,7 +254,7 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
               log.info(`get: token=${p.token}, obj_type=${p.obj_type ?? 'wiki'}`);
 
               const res = await client.invoke(
-                'feishu_wiki_space_node.get',
+                'weact_wiki_space_node.get',
                 (sdk, opts) =>
                   sdk.wiki.space.getNode(
                     {
@@ -285,7 +285,7 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
               );
 
               const res = await client.invoke(
-                'feishu_wiki_space_node.create',
+                'weact_wiki_space_node.create',
                 (sdk, opts) =>
                   sdk.wiki.spaceNode.create(
                     {
@@ -320,7 +320,7 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
               );
 
               const res = await client.invoke(
-                'feishu_wiki_space_node.move',
+                'weact_wiki_space_node.move',
                 (sdk, opts) =>
                   sdk.wiki.spaceNode.move(
                     {
@@ -354,7 +354,7 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
               );
 
               const res = await client.invoke(
-                'feishu_wiki_space_node.copy',
+                'weact_wiki_space_node.copy',
                 (sdk, opts) =>
                   sdk.wiki.spaceNode.copy(
                     {
@@ -386,6 +386,6 @@ export function registerFeishuWikiSpaceNodeTool(api: OpenClawPluginApi): boolean
         }
       },
     },
-    { name: 'feishu_wiki_space_node' },
+    { name: 'weact_wiki_space_node' },
   );
 }

@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_bitable_app tool -- Manage Feishu Bitable apps (multidimensional tables).
+ * weact_bitable_app tool -- Manage Feishu Bitable apps (multidimensional tables).
  *
  * P0 Actions: create, get, list, patch
  * P1 Actions: copy
@@ -104,15 +104,15 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_bitable_app');
+  const { toolClient, log } = createToolContext(api, 'weact_bitable_app');
 
   registerTool(
     api,
     {
-      name: 'feishu_bitable_app',
+      name: 'weact_bitable_app',
       label: 'Feishu Bitable Apps',
       description:
-        '【以用户身份】飞书多维表格应用管理工具。当用户要求创建/查询/管理多维表格时使用。Actions: create（创建多维表格）, get（获取多维表格元数据）, list（列出多维表格）, patch（更新元数据）, delete（删除多维表格）, copy（复制多维表格）。',
+        '【以用户身份】WeAct多维表格应用管理工具。当用户要求创建/查询/管理多维表格时使用。Actions: create（创建多维表格）, get（获取多维表格元数据）, list（列出多维表格）, patch（更新元数据）, delete（删除多维表格）, copy（复制多维表格）。',
       parameters: FeishuBitableAppSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuBitableAppParams;
@@ -134,7 +134,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_bitable_app.create',
+                'weact_bitable_app.create',
                 (sdk, opts) =>
                   sdk.bitable.app.create(
                     {
@@ -160,7 +160,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
               log.info(`get: app_token=${p.app_token}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app.get',
+                'weact_bitable_app.get',
                 (sdk, opts) =>
                   sdk.bitable.app.get(
                     {
@@ -188,7 +188,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
               log.info(`list: folder_token=${p.folder_token ?? 'my_space'}, page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app.list',
+                'weact_bitable_app.list',
                 (sdk, opts) =>
                   sdk.drive.v1.file.list(
                     {
@@ -233,7 +233,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
               if (p.is_advanced !== undefined) updateData.is_advanced = p.is_advanced;
 
               const res = await client.invoke(
-                'feishu_bitable_app.patch',
+                'weact_bitable_app.patch',
                 (sdk, opts) =>
                   sdk.bitable.app.update(
                     {
@@ -268,7 +268,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_bitable_app.copy',
+                'weact_bitable_app.copy',
                 (sdk, opts) =>
                   sdk.bitable.app.copy(
                     {
@@ -295,7 +295,7 @@ export function registerFeishuBitableAppTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_bitable_app' },
+    { name: 'weact_bitable_app' },
   );
 
 }

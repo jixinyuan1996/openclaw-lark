@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * raw-request.ts — 飞书 Open API 裸 HTTP 请求工具。
+ * raw-request.ts — WeAct Open API 裸 HTTP 请求工具。
  *
  * 从 tool-client.ts 提取，提供不依赖 SDK 的直接 API 调用能力。
  * 用于 SDK 未覆盖的 API 或需要精细控制请求的场景。
@@ -65,9 +65,9 @@ function buildRequestBody(body: unknown): { headers?: Record<string, string>; bo
 }
 
 /**
- * 发起 raw HTTP 请求到飞书 API，自动处理域名解析、header 注入和错误检测。
+ * 发起 raw HTTP 请求到WeAct API，自动处理域名解析、header 注入和错误检测。
  *
- * 飞书 API 统一错误模式：返回 JSON 中 `code !== 0` 表示失败。
+ * WeAct API 统一错误模式：返回 JSON 中 `code !== 0` 表示失败。
  */
 export async function rawLarkRequest<T>(options: RawLarkRequestOptions): Promise<T> {
   const baseUrl = resolveDomainUrl(options.brand);
@@ -103,7 +103,7 @@ export async function rawLarkRequest<T>(options: RawLarkRequestOptions): Promise
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = (await resp.json()) as any;
 
-  // 飞书 API 统一错误模式：code !== 0
+  // WeAct API 统一错误模式：code !== 0
   if (data.code !== undefined && data.code !== 0) {
     const err = new Error(data.msg ?? `Lark API error: code=${data.code}`);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

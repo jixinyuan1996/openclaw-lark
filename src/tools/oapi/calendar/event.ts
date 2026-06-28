@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_calendar_event tool -- Manage Feishu calendar events.
+ * weact_calendar_event tool -- Manage Feishu calendar events.
  *
  * P0 Actions: create, list, get
  *
@@ -51,7 +51,7 @@ const FeishuCalendarEventSchema = Type.Union([
     user_open_id: Type.Optional(
       Type.String({
         description:
-          '当前请求用户的 open_id（可选，但强烈建议提供）。从消息上下文的 SenderId 字段获取，格式为 ou_xxx。日程创建在应用日历上，必须通过此参数将用户加为参会人，日程才会出现在用户的飞书日历中。',
+          '当前请求用户的 open_id（可选，但强烈建议提供）。从消息上下文的 SenderId 字段获取，格式为 ou_xxx。日程创建在应用日历上，必须通过此参数将用户加为参会人，日程才会出现在用户的WeAct日历中。',
       }),
     ),
     calendar_id: Type.Optional(
@@ -84,7 +84,7 @@ const FeishuCalendarEventSchema = Type.Union([
           vc_type: Type.Optional(
             StringEnum(['vc', 'third_party', 'no_meeting'], {
               description:
-                '视频会议类型：vc（飞书视频会议）、third_party（第三方链接）、no_meeting（无视频会议）。默认为空，首次添加参与人时自动生成飞书视频会议。',
+                '视频会议类型：vc（WeAct视频会议）、third_party（第三方链接）、no_meeting（无视频会议）。默认为空，首次添加参与人时自动生成WeAct视频会议。',
             }),
           ),
           icon_type: Type.Optional(
@@ -104,7 +104,7 @@ const FeishuCalendarEventSchema = Type.Union([
           ),
         },
         {
-          description: '视频会议信息。不传则默认在首次添加参与人时自动生成飞书视频会议。',
+          description: '视频会议信息。不传则默认在首次添加参与人时自动生成WeAct视频会议。',
         },
       ),
     ),
@@ -503,11 +503,11 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_calendar_event');
+  const { toolClient, log } = createToolContext(api, 'weact_calendar_event');
 
   const resolveCalendarId = async (client: ReturnType<typeof toolClient>): Promise<string | null> => {
     const primaryRes = await client.invoke(
-      'feishu_calendar_calendar.primary',
+      'weact_calendar_calendar.primary',
       (sdk, opts) => sdk.calendar.calendar.primary({}, opts),
       { as: 'user' },
     );
@@ -533,10 +533,10 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
   registerTool(
     api,
     {
-      name: 'feishu_calendar_event',
+      name: 'weact_calendar_event',
       label: 'Feishu Calendar Events',
       description:
-        "【以用户身份】飞书日程管理工具。当用户要求查看日程、创建会议、约会议、修改日程、删除日程、搜索日程、回复日程邀请时使用。Actions: create（创建日历事件）, list（查询时间范围内的日程，自动展开重复日程）, get（获取日程详情）, patch（更新日程）, delete（删除日程）, search（搜索日程）, reply（回复日程邀请）, instances（获取重复日程的实例列表，仅对重复日程有效）, instance_view（查看展开后的日程列表）。【重要】create 时必须传 user_open_id 参数，值为消息上下文中的 SenderId（格式 ou_xxx），否则日程只在应用日历上，用户完全看不到。list 操作使用 instance_view 接口，会自动展开重复日程为多个实例，时间区间不能超过40天，返回实例数量上限1000。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。",
+        "【以用户身份】WeAct日程管理工具。当用户要求查看日程、创建会议、约会议、修改日程、删除日程、搜索日程、回复日程邀请时使用。Actions: create（创建日历事件）, list（查询时间范围内的日程，自动展开重复日程）, get（获取日程详情）, patch（更新日程）, delete（删除日程）, search（搜索日程）, reply（回复日程邀请）, instances（获取重复日程的实例列表，仅对重复日程有效）, instance_view（查看展开后的日程列表）。【重要】create 时必须传 user_open_id 参数，值为消息上下文中的 SenderId（格式 ou_xxx），否则日程只在应用日历上，用户完全看不到。list 操作使用 instance_view 接口，会自动展开重复日程为多个实例，时间区间不能超过40天，返回实例数量上限1000。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。",
       parameters: FeishuCalendarEventSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as FeishuCalendarEventParams;
@@ -611,7 +611,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               if (p.recurrence) eventData.recurrence = p.recurrence;
 
               const res = await client.invoke(
-                'feishu_calendar_event.create',
+                'weact_calendar_event.create',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.create(
                     {
@@ -651,7 +651,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
 
                 try {
                   const attendeeRes = await client.invoke(
-                    'feishu_calendar_event.create',
+                    'weact_calendar_event.create',
                     (sdk, opts) =>
                       sdk.calendar.calendarEventAttendee.create(
                         {
@@ -712,7 +712,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
                 result.error =
                   '日程已创建在应用日历上，但未添加任何参会人，用户看不到此日程。请重新调用时传入 user_open_id 参数。';
               } else {
-                result.note = `已成功添加 ${allAttendees.length} 位参会人，日程应出现在参会人的飞书日历中。`;
+                result.note = `已成功添加 ${allAttendees.length} 位参会人，日程应出现在参会人的WeAct日历中。`;
               }
               return json(result);
             }
@@ -741,7 +741,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               );
 
               const res = await client.invoke(
-                'feishu_calendar_event.instance_view',
+                'weact_calendar_event.instance_view',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.instanceView(
                     {
@@ -779,7 +779,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               log.info(`get: calendar_id=${calendarId}, event_id=${p.event_id}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event.get',
+                'weact_calendar_event.get',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.get(
                     {
@@ -840,7 +840,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               );
 
               const res = await client.invoke(
-                'feishu_calendar_event.patch',
+                'weact_calendar_event.patch',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.patch(
                     {
@@ -873,7 +873,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               );
 
               const res = await client.invoke(
-                'feishu_calendar_event.delete',
+                'weact_calendar_event.delete',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.delete(
                     {
@@ -907,7 +907,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               log.info(`search: calendar_id=${calendarId}, query=${p.query}, page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event.search',
+                'weact_calendar_event.search',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.search(
                     {
@@ -948,7 +948,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               log.info(`reply: calendar_id=${calendarId}, event_id=${p.event_id}, rsvp=${p.rsvp_status}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event.reply',
+                'weact_calendar_event.reply',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.reply(
                     {
@@ -996,7 +996,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               log.info(`instances: calendar_id=${calendarId}, event_id=${p.event_id}, start=${startTs}, end=${endTs}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event.instances',
+                'weact_calendar_event.instances',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.instances(
                     {
@@ -1047,7 +1047,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
               log.info(`instance_view: calendar_id=${calendarId}, start=${startTs}, end=${endTs}`);
 
               const res = await client.invoke(
-                'feishu_calendar_event.instance_view',
+                'weact_calendar_event.instance_view',
                 (sdk, opts) =>
                   sdk.calendar.calendarEvent.instanceView(
                     {
@@ -1079,7 +1079,7 @@ export function registerFeishuCalendarEventTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_calendar_event' },
+    { name: 'weact_calendar_event' },
   );
 
 }

@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_calendar_calendar tool -- Manage Feishu calendars.
+ * weact_calendar_calendar tool -- Manage Feishu calendars.
  *
  * P0 Actions: list, get, primary
  *
@@ -68,15 +68,15 @@ export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_calendar_calendar');
+  const { toolClient, log } = createToolContext(api, 'weact_calendar_calendar');
 
   registerTool(
     api,
     {
-      name: 'feishu_calendar_calendar',
+      name: 'weact_calendar_calendar',
       label: 'Feishu Calendar Management',
       description:
-        '【以用户身份】飞书日历管理工具。用于查询日历列表、获取日历信息、查询主日历。Actions: list（查询日历列表）, get（查询指定日历信息）, primary（查询主日历信息）。',
+        '【以用户身份】WeAct日历管理工具。用于查询日历列表、获取日历信息、查询主日历。Actions: list（查询日历列表）, get（查询指定日历信息）, primary（查询主日历信息）。',
       parameters: FeishuCalendarCalendarSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as FeishuCalendarCalendarParams;
@@ -91,7 +91,7 @@ export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void
               log.info(`list: page_size=${p.page_size ?? 50}, page_token=${p.page_token ?? 'none'}`);
 
               const res = await client.invoke(
-                'feishu_calendar_calendar.list',
+                'weact_calendar_calendar.list',
                 (sdk, opts) =>
                   sdk.calendar.calendar.list(
                     {
@@ -130,7 +130,7 @@ export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void
               log.info(`get: calendar_id=${p.calendar_id}`);
 
               const res = await client.invoke(
-                'feishu_calendar_calendar.get',
+                'weact_calendar_calendar.get',
                 (sdk, opts) =>
                   sdk.calendar.calendar.get(
                     {
@@ -157,7 +157,7 @@ export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void
               log.info(`primary: querying primary calendar`);
 
               const res = await client.invoke(
-                'feishu_calendar_calendar.primary',
+                'weact_calendar_calendar.primary',
                 (sdk, opts) => sdk.calendar.calendar.primary({}, opts),
                 { as: 'user' },
               );
@@ -177,7 +177,7 @@ export function registerFeishuCalendarCalendarTool(api: OpenClawPluginApi): void
         }
       },
     },
-    { name: 'feishu_calendar_calendar' },
+    { name: 'weact_calendar_calendar' },
   );
 
 }

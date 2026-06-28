@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_comment tool -- Manage Feishu task comments.
+ * weact_task_comment tool -- Manage Feishu task comments.
  *
  * P1 Actions: create, list, get 支持通过 auth_type 参数切换用户(user)或应用(tenant)身份。
  *
@@ -92,15 +92,15 @@ export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_task_comment');
+  const { toolClient, log } = createToolContext(api, 'weact_task_comment');
 
   registerTool(
     api,
     {
-      name: 'feishu_task_comment',
+      name: 'weact_task_comment',
       label: 'Feishu Task Comments',
       description:
-        '【以用户或应用身份】飞书任务评论管理工具。当用户要求添加/查询任务评论、回复评论时使用。Actions: create（添加评论）, list（列出任务的所有评论）, get（获取单个评论详情）。',
+        '【以用户或应用身份】WeAct任务评论管理工具。当用户要求添加/查询任务评论、回复评论时使用。Actions: create（添加评论）, list（列出任务的所有评论）, get（获取单个评论详情）。',
       parameters: FeishuTaskCommentSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuTaskCommentParams;
@@ -127,7 +127,7 @@ export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_comment.create',
+                'weact_task_comment.create',
                 (sdk, opts) =>
                   sdk.task.v2.comment.create(
                     {
@@ -159,7 +159,7 @@ export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
               );
 
               const res = await client.invoke(
-                'feishu_task_comment.list',
+                'weact_task_comment.list',
                 (sdk, opts) =>
                   sdk.task.v2.comment.list(
                     {
@@ -196,7 +196,7 @@ export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
               log.info(`get: comment_id=${p.comment_id}`);
 
               const res = await client.invoke(
-                'feishu_task_comment.get',
+                'weact_task_comment.get',
                 (sdk, opts) =>
                   sdk.task.v2.comment.get(
                     {
@@ -226,7 +226,7 @@ export function registerFeishuTaskCommentTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_task_comment' },
+    { name: 'weact_task_comment' },
   );
 
 }

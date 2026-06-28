@@ -109,7 +109,7 @@ async function monitorSingleAccount(params: {
       'vc.bot.meeting_invited_v1': (data) => handleVcMeetingInvitedEvent(ctx, data),
       // Drive comment event — fires when a user adds a comment or reply on a document.
       'drive.notice.comment_add_v1': (data) => handleCommentEvent(ctx, data),
-      // 飞书 SDK EventDispatcher.register 不支持带返回值的处理器，此处 as any 是 SDK 类型限制的变通
+      // WeAct SDK EventDispatcher.register 不支持带返回值的处理器，此处 as any 是 SDK 类型限制的变通
       'card.action.trigger': ((data: unknown) =>
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         handleCardActionEvent(ctx, data)) as any,

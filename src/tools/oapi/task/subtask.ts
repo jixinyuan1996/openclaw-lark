@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_subtask tool -- Manage Feishu task subtasks.
+ * weact_task_subtask tool -- Manage Feishu task subtasks.
  *
  * P1 Actions: create, list 支持通过 auth_type 参数切换用户(user)或应用(tenant)身份。
  *
@@ -113,15 +113,15 @@ export function registerFeishuTaskSubtaskTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_task_subtask');
+  const { toolClient, log } = createToolContext(api, 'weact_task_subtask');
 
   registerTool(
     api,
     {
-      name: 'feishu_task_subtask',
+      name: 'weact_task_subtask',
       label: 'Feishu Task Subtasks',
       description:
-        '【以用户或应用身份】飞书任务的子任务管理工具。当用户要求创建子任务、查询任务的子任务列表时使用。Actions: create（创建子任务）, list（列出任务的所有子任务）。',
+        '【以用户或应用身份】WeAct任务的子任务管理工具。当用户要求创建子任务、查询任务的子任务列表时使用。Actions: create（创建子任务）, list（列出任务的所有子任务）。',
       parameters: FeishuTaskSubtaskSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuTaskSubtaskParams;
@@ -183,7 +183,7 @@ export function registerFeishuTaskSubtaskTool(api: OpenClawPluginApi): void {
               }
 
               const res = await client.invoke(
-                'feishu_task_subtask.create',
+                'weact_task_subtask.create',
                 (sdk, opts) =>
                   sdk.task.v2.taskSubtask.create(
                     {
@@ -216,7 +216,7 @@ export function registerFeishuTaskSubtaskTool(api: OpenClawPluginApi): void {
               log.info(`list: task_guid=${p.task_guid}, page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_task_subtask.list',
+                'weact_task_subtask.list',
                 (sdk, opts) =>
                   sdk.task.v2.taskSubtask.list(
                     {
@@ -251,7 +251,7 @@ export function registerFeishuTaskSubtaskTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_task_subtask' },
+    { name: 'weact_task_subtask' },
   );
 
 }

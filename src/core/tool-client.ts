@@ -263,7 +263,7 @@ export class ToolClient {
   // -------------------------------------------------------------------------
 
   /**
-   * 对 SDK 未覆盖的飞书 API 发起 raw HTTP 请求，同时复用 invoke() 的
+   * 对 SDK 未覆盖的WeAct API 发起 raw HTTP 请求，同时复用 invoke() 的
    * auth/scope/refresh 全链路。
    *
    * @param apiName - 逻辑 API 名称（用于日志和错误信息），如 `"im.v1.chatP2p.batchQuery"`
@@ -394,7 +394,7 @@ export class ToolClient {
   // -------------------------------------------------------------------------
 
   /**
-   * 发起 raw HTTP 请求到飞书 API，委托 rawLarkRequest 处理。
+   * 发起 raw HTTP 请求到WeAct API，委托 rawLarkRequest 处理。
    */
   private async rawRequest<T>(
     path: string,
@@ -418,7 +418,7 @@ export class ToolClient {
   // -------------------------------------------------------------------------
 
   /**
-   * 识别飞书服务端错误码并转换为结构化错误。
+   * 识别WeAct服务端错误码并转换为结构化错误。
    *
    * - LARK_ERROR.APP_SCOPE_MISSING (99991672) → AppScopeMissingError（清缓存后抛出）
    * - LARK_ERROR.USER_SCOPE_INSUFFICIENT (99991679) → UserScopeInsufficientError

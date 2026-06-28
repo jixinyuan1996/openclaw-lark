@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_search_doc_wiki tool -- Search Feishu documents and wikis.
+ * weact_search_doc_wiki tool -- Search Feishu documents and wikis.
  *
  * Actions: search
  *
@@ -180,15 +180,15 @@ export function registerFeishuSearchDocWikiTool(api: OpenClawPluginApi): boolean
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_search_doc_wiki');
+  const { toolClient, log } = createToolContext(api, 'weact_search_doc_wiki');
 
   return registerTool(
     api,
     {
-      name: 'feishu_search_doc_wiki',
+      name: 'weact_search_doc_wiki',
       label: 'Feishu Document & Wiki Search',
       description:
-        '【以用户身份】飞书文档与 Wiki 统一搜索工具。同时搜索云空间文档和知识库 Wiki。Actions: search。' +
+        '【以用户身份】WeAct文档与 Wiki 统一搜索工具。同时搜索云空间文档和知识库 Wiki。Actions: search。' +
         '【重要】query 参数是搜索关键词（必填），filter 参数可选。' +
         '【重要】filter 不传时，搜索所有文档和 Wiki；传了则同时对文档和 Wiki 应用相同的过滤条件。' +
         '【重要】支持按文档类型、创建者、创建时间、打开时间等多维度筛选。' +
@@ -244,7 +244,7 @@ export function registerFeishuSearchDocWikiTool(api: OpenClawPluginApi): boolean
 
               // 使用 client.invoke 统一封装底层 request 调用
               const res = await client.invoke(
-                'feishu_search_doc_wiki.search',
+                'weact_search_doc_wiki.search',
                 async (sdk, _opts, uat) => {
                   return sdk.request(
                     {
@@ -289,6 +289,6 @@ export function registerFeishuSearchDocWikiTool(api: OpenClawPluginApi): boolean
         }
       },
     },
-    { name: 'feishu_search_doc_wiki' },
+    { name: 'weact_search_doc_wiki' },
   );
 }

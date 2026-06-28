@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_doc_comments tool -- 云文档评论管理
+ * weact_doc_comments tool -- 云文档评论管理
  *
  * 支持获取、创建、解决/恢复云文档评论
  * 使用以下 SDK 接口:
@@ -211,12 +211,12 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_doc_comments');
+  const { toolClient, log } = createToolContext(api, 'weact_doc_comments');
 
   return registerTool(
     api,
     {
-      name: 'feishu_doc_comments',
+      name: 'weact_doc_comments',
       label: 'Feishu: Doc Comments',
       description:
         '【以用户身份】管理云文档评论。支持: ' +
@@ -242,7 +242,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
 
             try {
               const wikiNodeRes = await client.invoke(
-                'feishu_wiki_space_node.get',
+                'weact_wiki_space_node.get',
                 (sdk: any, opts: any) =>
                   sdk.wiki.space.getNode(
                     {
@@ -284,7 +284,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
             log.info(`doc_comments.list: file_type=${actualFileType}`);
 
             const res = await client.invoke(
-              'feishu_doc_comments.list',
+              'weact_doc_comments.list',
               (sdk: any, opts: any) =>
                 sdk.drive.v1.fileComment.list(
                   {
@@ -337,7 +337,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
             // Single-page fetch — return items + pagination metadata,
             // consistent with the list action's API semantics.
             const replyRes = await client.invoke(
-              'feishu_doc_comments.list_replies',
+              'weact_doc_comments.list_replies',
               (sdk: any, opts: any) =>
                 sdk.drive.v1.fileCommentReply.list(
                   {
@@ -393,7 +393,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
             };
 
             const res = await client.invoke(
-              'feishu_doc_comments.create',
+              'weact_doc_comments.create',
               (sdk: any, opts: any) =>
                 sdk.drive.v1.fileComment.create(
                   {
@@ -438,7 +438,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
             let res: any;
             try {
               res = await client.invoke(
-                'feishu_doc_comments.reply',
+                'weact_doc_comments.reply',
                 (sdk) => (sdk as any).request({
                   method: 'POST',
                   url: replyUrl,
@@ -451,7 +451,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
               // Fallback: 部分 API 版本使用 reply_elements 格式
               log.info(`doc_comments.reply: first attempt failed, trying reply_elements format`);
               res = await client.invoke(
-                'feishu_doc_comments.reply',
+                'weact_doc_comments.reply',
                 (sdk) => (sdk as any).request({
                   method: 'POST',
                   url: replyUrl,
@@ -483,7 +483,7 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
             log.info(`doc_comments.patch: comment_id="${p.comment_id}", is_solved=${p.is_solved_value}`);
 
             const res = await client.invoke(
-              'feishu_doc_comments.patch',
+              'weact_doc_comments.patch',
               (sdk: any, opts: any) =>
                 sdk.drive.v1.fileComment.patch(
                   {
@@ -517,6 +517,6 @@ export function registerDocCommentsTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_doc_comments' },
+    { name: 'weact_doc_comments' },
   );
 }

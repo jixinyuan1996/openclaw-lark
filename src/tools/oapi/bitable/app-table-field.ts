@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_bitable_app_table_field tool -- Manage Feishu Bitable fields (columns).
+ * weact_bitable_app_table_field tool -- Manage Feishu Bitable fields (columns).
  *
  * P1 Actions: create, list, update, delete
  *
@@ -126,15 +126,15 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
 
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_bitable_app_table_field');
+  const { toolClient, log } = createToolContext(api, 'weact_bitable_app_table_field');
 
   registerTool(
     api,
     {
-      name: 'feishu_bitable_app_table_field',
+      name: 'weact_bitable_app_table_field',
       label: 'Feishu Bitable Fields',
       description:
-        '【以用户身份】飞书多维表格字段（列）管理工具。当用户要求创建/查询/更新/删除字段、调整表结构时使用。Actions: create（创建字段）, list（列出所有字段）, update（更新字段，支持只传 field_name 改名）, delete（删除字段）。',
+        '【以用户身份】WeAct多维表格字段（列）管理工具。当用户要求创建/查询/更新/删除字段、调整表结构时使用。Actions: create（创建字段）, list（列出所有字段）, update（更新字段，支持只传 field_name 改名）, delete（删除字段）。',
       parameters: FeishuBitableAppTableFieldSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuBitableAppTableFieldParams;
@@ -164,7 +164,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
               }
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_field.create',
+                'weact_bitable_app_table_field.create',
                 (sdk, opts) =>
                   sdk.bitable.appTableField.create(
                     {
@@ -200,7 +200,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
               log.info(`list: app_token=${p.app_token}, table_id=${p.table_id}, view_id=${p.view_id ?? 'none'}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_field.list',
+                'weact_bitable_app_table_field.list',
                 (sdk, opts) =>
                   sdk.bitable.appTableField.list(
                     {
@@ -246,7 +246,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
                 log.info(`update: missing type or field_name, auto-querying field info`);
 
                 const listRes = await client.invoke(
-                  'feishu_bitable_app_table_field.update',
+                  'weact_bitable_app_table_field.update',
                   (sdk, opts) =>
                     sdk.bitable.appTableField.list(
                       {
@@ -296,7 +296,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
               }
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_field.update',
+                'weact_bitable_app_table_field.update',
                 (sdk, opts) =>
                   sdk.bitable.appTableField.update(
                     {
@@ -329,7 +329,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
               log.info(`delete: app_token=${p.app_token}, table_id=${p.table_id}, field_id=${p.field_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_field.delete',
+                'weact_bitable_app_table_field.delete',
                 (sdk, opts) =>
                   sdk.bitable.appTableField.delete(
                     {
@@ -357,7 +357,7 @@ export function registerFeishuBitableAppTableFieldTool(api: OpenClawPluginApi): 
         }
       },
     },
-    { name: 'feishu_bitable_app_table_field' },
+    { name: 'weact_bitable_app_table_field' },
   );
 
 }

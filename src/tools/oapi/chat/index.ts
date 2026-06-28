@@ -13,9 +13,9 @@ import { registerChatMembersTool } from './members';
 
 export function registerFeishuChatTools(api: OpenClawPluginApi): void {
   const registered: string[] = [];
-  if (registerChatSearchTool(api)) registered.push('feishu_chat');
-  if (registerChatMembersTool(api)) registered.push('feishu_chat_members');
+  if (registerChatSearchTool(api)) registered.push('weact_chat');
+  if (registerChatMembersTool(api)) registered.push('weact_chat_members');
   if (registered.length > 0) {
-    api.logger.debug?.(`feishu_chat: Registered ${registered.join(', ')}`);
+    api.logger.debug?.(`weact_chat: Registered ${registered.join(', ')}`);
   }
 }

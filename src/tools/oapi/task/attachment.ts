@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_attachment tool -- Manage task attachments.
+ * weact_task_attachment tool -- Manage task attachments.
  *
  * Actions:
  * - upload: Upload task attachment (tenant identity)
@@ -68,14 +68,14 @@ export function registerFeishuTaskAttachmentTool(api: OpenClawPluginApi): void {
     if (!api.config) return;
     const cfg = api.config;
 
-    const { toolClient } = createToolContext(api, 'feishu_task_attachment');
+    const { toolClient } = createToolContext(api, 'weact_task_attachment');
 
     registerTool(
         api,
         {
-            name: 'feishu_task_attachment',
+            name: 'weact_task_attachment',
             label: 'Feishu Task Attachment',
-            description: '飞书任务附件工具。当前提供 upload action，用于上传任务附件。',
+            description: 'WeAct任务附件工具。当前提供 upload action，用于上传任务附件。',
             parameters: FeishuTaskAttachmentSchema,
             async execute(_toolCallId: string, params: unknown) {
                 const p = params as FeishuTaskAttachmentParams;
@@ -118,7 +118,7 @@ export function registerFeishuTaskAttachmentTool(api: OpenClawPluginApi): void {
                         });
                     }
 
-                    const res = await client.invokeByPath('feishu_task_attachment.upload', resolved.path, {
+                    const res = await client.invokeByPath('weact_task_attachment.upload', resolved.path, {
                         method: 'POST',
                         as,
                         body: formData,
@@ -132,6 +132,6 @@ export function registerFeishuTaskAttachmentTool(api: OpenClawPluginApi): void {
                 }
             },
         },
-        { name: 'feishu_task_attachment' },
+        { name: 'weact_task_attachment' },
     );
 }

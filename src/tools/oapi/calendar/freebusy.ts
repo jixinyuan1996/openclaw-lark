@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_calendar_freebusy tool -- Query user/room calendar free/busy status.
+ * weact_calendar_freebusy tool -- Query user/room calendar free/busy status.
  *
  * P0 Actions: list
  *
@@ -58,15 +58,15 @@ export function registerFeishuCalendarFreebusyTool(api: OpenClawPluginApi): void
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_calendar_freebusy');
+  const { toolClient, log } = createToolContext(api, 'weact_calendar_freebusy');
 
   registerTool(
     api,
     {
-      name: 'feishu_calendar_freebusy',
+      name: 'weact_calendar_freebusy',
       label: 'Feishu Calendar Free/Busy Status',
       description:
-        '【以用户身份】飞书日历忙闲查询工具。当用户要求查询某时间段内某人是否空闲、查看忙闲状态时使用。支持批量查询 1-10 个用户的主日历忙闲信息，用于安排会议时间。',
+        '【以用户身份】WeAct日历忙闲查询工具。当用户要求查询某时间段内某人是否空闲、查看忙闲状态时使用。支持批量查询 1-10 个用户的主日历忙闲信息，用于安排会议时间。',
       parameters: FeishuCalendarFreebusySchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuCalendarFreebusyParams;
@@ -117,7 +117,7 @@ export function registerFeishuCalendarFreebusyTool(api: OpenClawPluginApi): void
           );
 
           const res = await client.invoke(
-            'feishu_calendar_freebusy.list',
+            'weact_calendar_freebusy.list',
             (sdk, opts) =>
               sdk.calendar.freebusy.batch(
                 {
@@ -155,7 +155,7 @@ export function registerFeishuCalendarFreebusyTool(api: OpenClawPluginApi): void
         }
       },
     },
-    { name: 'feishu_calendar_freebusy' },
+    { name: 'weact_calendar_freebusy' },
   );
 
 }

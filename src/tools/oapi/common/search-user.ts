@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_search_user tool -- 搜索员工
+ * weact_search_user tool -- 搜索员工
  *
  * 通过关键词搜索员工，结果按亲密度排序
  * 使用搜索接口（/open-apis/search/v1/user）
@@ -53,12 +53,12 @@ export function registerSearchUserTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_search_user');
+  const { toolClient, log } = createToolContext(api, 'weact_search_user');
 
   registerTool(
     api,
     {
-      name: 'feishu_search_user',
+      name: 'weact_search_user',
       label: 'Feishu: Search User',
       description:
         '搜索员工信息（通过关键词搜索姓名、手机号、邮箱）。' + '返回匹配的员工列表，包含姓名、部门、open_id 等信息。',
@@ -76,7 +76,7 @@ export function registerSearchUserTool(api: OpenClawPluginApi): void {
           };
           if (p.page_token) requestQuery.page_token = p.page_token;
 
-          const res = await client.invokeByPath('feishu_search_user.default', '/open-apis/search/v1/user', {
+          const res = await client.invokeByPath('weact_search_user.default', '/open-apis/search/v1/user', {
             method: 'GET',
             query: requestQuery,
             as: 'user',
@@ -98,7 +98,7 @@ export function registerSearchUserTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_search_user' },
+    { name: 'weact_search_user' },
   );
 
 }

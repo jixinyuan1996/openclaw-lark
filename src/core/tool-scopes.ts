@@ -4,7 +4,7 @@
  *
  * Tool Scopes 配置
  *
- * 定义所有工具动作所需的飞书权限映射。
+ * 定义所有工具动作所需的WeAct权限映射。
  *
  * ## 维护方式
  *
@@ -15,14 +15,14 @@
  * 1. 在 `ToolActionKey` 类型中添加新键：
  *    ```typescript
  *    export type ToolActionKey =
- *      | "feishu_calendar_event.create"
- *      | "feishu_new_tool.action"  // 新增
+ *      | "weact_calendar_event.create"
+ *      | "weact_new_tool.action"  // 新增
  *    ```
  *
  * 2. 在 `TOOL_SCOPES` 对象中添加对应配置：
  *    ```typescript
  *    export const TOOL_SCOPES: ToolScopeMapping = {
- *      "feishu_new_tool.action": [
+ *      "weact_new_tool.action": [
  *        "required:scope:here"
  *      ],
  *    };
@@ -35,7 +35,7 @@
  *
  * ### 如何确定所需 Scope
  *
- * 1. **查阅飞书开放平台 API 文档**：https://open.feishu.cn/document
+ * 1. **查阅WeAct开放平台 API 文档**：https://open.feishu.cn/document
  * 2. **使用 feishu-oapi-search skill**：在 Claude Code 中搜索 API 文档
  * 3. **参考类似工具**：查看功能相近的工具的 scope 配置
  * 4. **实际测试**：观察 API 调用的错误码（LARK_ERROR.APP_SCOPE_MISSING/99991672=应用缺权限，LARK_ERROR.USER_SCOPE_INSUFFICIENT/99991679=用户缺授权）
@@ -51,120 +51,120 @@
  * 格式：{tool_name}.{action_name}
  *
  * 示例：
- * - "feishu_calendar_event.create"
- * - "feishu_bitable_app_table_record.update"
+ * - "weact_calendar_event.create"
+ * - "weact_bitable_app_table_record.update"
  *
  * 总计：96 个工具动作
  */
 export type ToolActionKey =
-  | 'feishu_bitable_app.copy'
-  | 'feishu_bitable_app.create'
-  | 'feishu_bitable_app.get'
-  | 'feishu_bitable_app.list'
-  | 'feishu_bitable_app.patch'
-  | 'feishu_bitable_app_table.batch_create'
-  | 'feishu_bitable_app_table.create'
-  | 'feishu_bitable_app_table.list'
-  | 'feishu_bitable_app_table.patch'
-  | 'feishu_bitable_app_table_field.create'
-  | 'feishu_bitable_app_table_field.delete'
-  | 'feishu_bitable_app_table_field.list'
-  | 'feishu_bitable_app_table_field.update'
-  | 'feishu_bitable_app_table_record.batch_create'
-  | 'feishu_bitable_app_table_record.batch_delete'
-  | 'feishu_bitable_app_table_record.batch_update'
-  | 'feishu_bitable_app_table_record.create'
-  | 'feishu_bitable_app_table_record.delete'
-  | 'feishu_bitable_app_table_record.list'
-  | 'feishu_bitable_app_table_record.update'
-  | 'feishu_bitable_app_table_view.create'
-  | 'feishu_bitable_app_table_view.get'
-  | 'feishu_bitable_app_table_view.list'
-  | 'feishu_bitable_app_table_view.patch'
-  | 'feishu_calendar_calendar.get'
-  | 'feishu_calendar_calendar.list'
-  | 'feishu_calendar_calendar.primary'
-  | 'feishu_calendar_event.create'
-  | 'feishu_calendar_event.delete'
-  | 'feishu_calendar_event.get'
-  | 'feishu_calendar_event.instance_view'
-  | 'feishu_calendar_event.instances'
-  | 'feishu_calendar_event.list'
-  | 'feishu_calendar_event.patch'
-  | 'feishu_calendar_event.reply'
-  | 'feishu_calendar_event.search'
-  | 'feishu_calendar_event_attendee.create'
-  | 'feishu_calendar_event_attendee.list'
-  | 'feishu_calendar_freebusy.list'
-  | 'feishu_chat.get'
-  | 'feishu_chat.search'
-  | 'feishu_chat_members.default'
-  | 'feishu_create_doc.default'
-  | 'feishu_doc_comments.create'
-  | 'feishu_doc_comments.list'
-  | 'feishu_doc_comments.list_replies'
-  | 'feishu_doc_comments.patch'
-  | 'feishu_doc_comments.reply'
-  | 'feishu_doc_media.download'
-  | 'feishu_doc_media.insert'
-  | 'feishu_drive_file.copy'
-  | 'feishu_drive_file.delete'
-  | 'feishu_drive_file.download'
-  | 'feishu_drive_file.get_meta'
-  | 'feishu_drive_file.list'
-  | 'feishu_drive_file.move'
-  | 'feishu_drive_file.upload'
-  | 'feishu_fetch_doc.default'
-  | 'feishu_get_user.basic_batch'
-  | 'feishu_get_user.default'
-  | 'feishu_im_user_fetch_resource.default'
-  | 'feishu_im_user_get_messages.default'
-  | 'feishu_im_user_message.reply'
-  | 'feishu_im_user_message.send'
-  | 'feishu_im_user_search_messages.default'
-  | 'feishu_search_doc_wiki.search'
-  | 'feishu_search_user.default'
-  | 'feishu_task_attachment.upload'
-  | 'feishu_task_comment.create'
-  | 'feishu_task_comment.get'
-  | 'feishu_task_comment.list'
-  | 'feishu_task_section.create'
-  | 'feishu_task_section.get'
-  | 'feishu_task_section.list'
-  | 'feishu_task_section.patch'
-  | 'feishu_task_section.tasks'
-  | 'feishu_task_subtask.create'
-  | 'feishu_task_subtask.list'
-  | 'feishu_task_task.create'
-  | 'feishu_task_task.get'
-  | 'feishu_task_task.list'
-  | 'feishu_task_task.patch'
-  | 'feishu_task_task.add_members'
-  | 'feishu_task_task.append_steps'
-  | 'feishu_task_tasklist.add_members'
-  | 'feishu_task_tasklist.create'
-  | 'feishu_task_tasklist.get'
-  | 'feishu_task_tasklist.list'
-  | 'feishu_task_tasklist.patch'
-  | 'feishu_task_tasklist.tasks'
-  | 'feishu_task_agent.register'
-  | 'feishu_task_agent.update_profile'
-  | 'feishu_update_doc.default'
-  | 'feishu_wiki_space.create'
-  | 'feishu_wiki_space.get'
-  | 'feishu_wiki_space.list'
-  | 'feishu_wiki_space_node.copy'
-  | 'feishu_wiki_space_node.create'
-  | 'feishu_wiki_space_node.get'
-  | 'feishu_wiki_space_node.list'
-  | 'feishu_wiki_space_node.move'
-  | 'feishu_sheet.info'
-  | 'feishu_sheet.read'
-  | 'feishu_sheet.write'
-  | 'feishu_sheet.append'
-  | 'feishu_sheet.find'
-  | 'feishu_sheet.create'
-  | 'feishu_sheet.export';
+  | 'weact_bitable_app.copy'
+  | 'weact_bitable_app.create'
+  | 'weact_bitable_app.get'
+  | 'weact_bitable_app.list'
+  | 'weact_bitable_app.patch'
+  | 'weact_bitable_app_table.batch_create'
+  | 'weact_bitable_app_table.create'
+  | 'weact_bitable_app_table.list'
+  | 'weact_bitable_app_table.patch'
+  | 'weact_bitable_app_table_field.create'
+  | 'weact_bitable_app_table_field.delete'
+  | 'weact_bitable_app_table_field.list'
+  | 'weact_bitable_app_table_field.update'
+  | 'weact_bitable_app_table_record.batch_create'
+  | 'weact_bitable_app_table_record.batch_delete'
+  | 'weact_bitable_app_table_record.batch_update'
+  | 'weact_bitable_app_table_record.create'
+  | 'weact_bitable_app_table_record.delete'
+  | 'weact_bitable_app_table_record.list'
+  | 'weact_bitable_app_table_record.update'
+  | 'weact_bitable_app_table_view.create'
+  | 'weact_bitable_app_table_view.get'
+  | 'weact_bitable_app_table_view.list'
+  | 'weact_bitable_app_table_view.patch'
+  | 'weact_calendar_calendar.get'
+  | 'weact_calendar_calendar.list'
+  | 'weact_calendar_calendar.primary'
+  | 'weact_calendar_event.create'
+  | 'weact_calendar_event.delete'
+  | 'weact_calendar_event.get'
+  | 'weact_calendar_event.instance_view'
+  | 'weact_calendar_event.instances'
+  | 'weact_calendar_event.list'
+  | 'weact_calendar_event.patch'
+  | 'weact_calendar_event.reply'
+  | 'weact_calendar_event.search'
+  | 'weact_calendar_event_attendee.create'
+  | 'weact_calendar_event_attendee.list'
+  | 'weact_calendar_freebusy.list'
+  | 'weact_chat.get'
+  | 'weact_chat.search'
+  | 'weact_chat_members.default'
+  | 'weact_create_doc.default'
+  | 'weact_doc_comments.create'
+  | 'weact_doc_comments.list'
+  | 'weact_doc_comments.list_replies'
+  | 'weact_doc_comments.patch'
+  | 'weact_doc_comments.reply'
+  | 'weact_doc_media.download'
+  | 'weact_doc_media.insert'
+  | 'weact_drive_file.copy'
+  | 'weact_drive_file.delete'
+  | 'weact_drive_file.download'
+  | 'weact_drive_file.get_meta'
+  | 'weact_drive_file.list'
+  | 'weact_drive_file.move'
+  | 'weact_drive_file.upload'
+  | 'weact_fetch_doc.default'
+  | 'weact_get_user.basic_batch'
+  | 'weact_get_user.default'
+  | 'weact_im_user_fetch_resource.default'
+  | 'weact_im_user_get_messages.default'
+  | 'weact_im_user_message.reply'
+  | 'weact_im_user_message.send'
+  | 'weact_im_user_search_messages.default'
+  | 'weact_search_doc_wiki.search'
+  | 'weact_search_user.default'
+  | 'weact_task_attachment.upload'
+  | 'weact_task_comment.create'
+  | 'weact_task_comment.get'
+  | 'weact_task_comment.list'
+  | 'weact_task_section.create'
+  | 'weact_task_section.get'
+  | 'weact_task_section.list'
+  | 'weact_task_section.patch'
+  | 'weact_task_section.tasks'
+  | 'weact_task_subtask.create'
+  | 'weact_task_subtask.list'
+  | 'weact_task_task.create'
+  | 'weact_task_task.get'
+  | 'weact_task_task.list'
+  | 'weact_task_task.patch'
+  | 'weact_task_task.add_members'
+  | 'weact_task_task.append_steps'
+  | 'weact_task_tasklist.add_members'
+  | 'weact_task_tasklist.create'
+  | 'weact_task_tasklist.get'
+  | 'weact_task_tasklist.list'
+  | 'weact_task_tasklist.patch'
+  | 'weact_task_tasklist.tasks'
+  | 'weact_task_agent.register'
+  | 'weact_task_agent.update_profile'
+  | 'weact_update_doc.default'
+  | 'weact_wiki_space.create'
+  | 'weact_wiki_space.get'
+  | 'weact_wiki_space.list'
+  | 'weact_wiki_space_node.copy'
+  | 'weact_wiki_space_node.create'
+  | 'weact_wiki_space_node.get'
+  | 'weact_wiki_space_node.list'
+  | 'weact_wiki_space_node.move'
+  | 'weact_sheet.info'
+  | 'weact_sheet.read'
+  | 'weact_sheet.write'
+  | 'weact_sheet.append'
+  | 'weact_sheet.find'
+  | 'weact_sheet.create'
+  | 'weact_sheet.export';
 /**
  * Tool Scope 映射类型
  *
@@ -177,7 +177,7 @@ export type ToolScopeMapping = Record<ToolActionKey, string[]>;
 /**
  * Tool Scope 数据
  *
- * 每个工具动作所需的飞书权限列表（Required Scopes）
+ * 每个工具动作所需的WeAct权限列表（Required Scopes）
  *
  * ## 数据说明
  *
@@ -188,110 +188,110 @@ export type ToolScopeMapping = Record<ToolActionKey, string[]>;
  * ## 示例
  *
  * ```typescript
- * TOOL_SCOPES["feishu_calendar_event.create"]
+ * TOOL_SCOPES["weact_calendar_event.create"]
  * // 返回: ["calendar:calendar.event:create", "calendar:calendar.event:update"]
  * ```
  *
  * @see {@link ToolActionKey} 所有可用的工具动作键
  */
 export const TOOL_SCOPES: ToolScopeMapping = {
-  'feishu_bitable_app.create': ['base:app:create'],
-  'feishu_bitable_app.get': ['base:app:read'],
-  'feishu_bitable_app.list': ['space:document:retrieve'],
-  'feishu_bitable_app.patch': ['base:app:update'],
-  'feishu_bitable_app.copy': ['base:app:copy'],
-  'feishu_bitable_app_table.create': ['base:table:create'],
-  'feishu_bitable_app_table.list': ['base:table:read'],
-  'feishu_bitable_app_table.patch': ['base:table:update'],
-  'feishu_bitable_app_table.batch_create': ['base:table:create'],
-  'feishu_bitable_app_table_record.create': ['base:record:create'],
-  'feishu_bitable_app_table_record.update': ['base:record:update'],
-  'feishu_bitable_app_table_record.delete': ['base:record:delete'],
-  'feishu_bitable_app_table_record.batch_create': ['base:record:create'],
-  'feishu_bitable_app_table_record.batch_update': ['base:record:update'],
-  'feishu_bitable_app_table_record.batch_delete': ['base:record:delete'],
-  'feishu_bitable_app_table_record.list': ['base:record:retrieve'],
-  'feishu_bitable_app_table_field.create': ['base:field:create'],
-  'feishu_bitable_app_table_field.list': ['base:field:read'],
-  'feishu_bitable_app_table_field.update': ['base:field:read', 'base:field:update'],
-  'feishu_bitable_app_table_field.delete': ['base:field:delete'],
-  'feishu_bitable_app_table_view.create': ['base:view:write_only'],
-  'feishu_bitable_app_table_view.get': ['base:view:read'],
-  'feishu_bitable_app_table_view.list': ['base:view:read'],
-  'feishu_bitable_app_table_view.patch': ['base:view:write_only'],
-  'feishu_calendar_calendar.list': ['calendar:calendar:read'],
-  'feishu_calendar_calendar.get': ['calendar:calendar:read'],
-  'feishu_calendar_calendar.primary': ['calendar:calendar:read'],
-  'feishu_calendar_event.create': ['calendar:calendar.event:create', 'calendar:calendar.event:update'],
-  'feishu_calendar_event.list': ['calendar:calendar.event:read'],
-  'feishu_calendar_event.get': ['calendar:calendar.event:read'],
-  'feishu_calendar_event.patch': ['calendar:calendar.event:update'],
-  'feishu_calendar_event.delete': ['calendar:calendar.event:delete'],
-  'feishu_calendar_event.search': ['calendar:calendar.event:read'],
-  'feishu_calendar_event.reply': ['calendar:calendar.event:reply'],
-  'feishu_calendar_event.instances': ['calendar:calendar.event:read'],
-  'feishu_calendar_event.instance_view': ['calendar:calendar.event:read'],
-  'feishu_calendar_event_attendee.create': ['calendar:calendar.event:update'],
-  'feishu_calendar_event_attendee.list': ['calendar:calendar.event:read'],
-  'feishu_calendar_freebusy.list': ['calendar:calendar.free_busy:read'],
-  'feishu_task_attachment.upload': ['task:attachment:write'],
-  'feishu_task_task.create': ['task:task:write', 'task:task:writeonly'],
-  'feishu_task_task.get': ['task:task:read', 'task:task:write'],
-  'feishu_task_task.list': ['task:task:read', 'task:task:write'],
-  'feishu_task_task.patch': ['task:task:write', 'task:task:writeonly'],
-  'feishu_task_task.add_members': ['task:task:write', 'task:task:writeonly'],
-  'feishu_task_task.append_steps': ['task:task:write', 'task:task:writeonly'],
-  'feishu_task_tasklist.create': ['task:tasklist:write'],
-  'feishu_task_tasklist.get': ['task:tasklist:read', 'task:tasklist:write'],
-  'feishu_task_tasklist.list': ['task:tasklist:read', 'task:tasklist:write'],
-  'feishu_task_tasklist.tasks': ['task:tasklist:read', 'task:tasklist:write'],
-  'feishu_task_tasklist.patch': ['task:tasklist:write'],
-  'feishu_task_tasklist.add_members': ['task:tasklist:write'],
-  'feishu_task_comment.create': ['task:comment:write'],
-  'feishu_task_comment.list': ['task:comment:read', 'task:comment:write'],
-  'feishu_task_comment.get': ['task:comment:read', 'task:comment:write'],
-  'feishu_task_section.create': ['task:task'],
-  'feishu_task_section.get': ['task:task'],
-  'feishu_task_section.list': ['task:task'],
-  'feishu_task_section.patch': ['task:task'],
-  'feishu_task_section.tasks': ['task:task'],
-  'feishu_task_subtask.create': ['task:task:write'],
-  'feishu_task_subtask.list': ['task:task:read', 'task:task:write'],
-  'feishu_task_agent.register': ['task:task:write'],
-  'feishu_task_agent.update_profile': ['task:task:write', 'task:task:writeonly'],
-  'feishu_chat.search': ['im:chat:read'],
-  'feishu_chat.get': ['im:chat:read'],
-  'feishu_chat_members.default': ['im:chat.members:read'],
-  'feishu_drive_file.list': ['space:document:retrieve'],
-  'feishu_drive_file.get_meta': ['drive:drive.metadata:readonly'],
-  'feishu_drive_file.copy': ['docs:document:copy'],
-  'feishu_drive_file.move': ['space:document:move'],
-  'feishu_drive_file.delete': ['space:document:delete'],
-  'feishu_drive_file.upload': ['drive:file:upload'],
-  'feishu_drive_file.download': ['drive:file:download'],
-  'feishu_doc_media.download': ['board:whiteboard:node:read', 'docs:document.media:download'],
-  'feishu_doc_media.insert': ['docx:document:write_only', 'docs:document.media:upload'],
-  'feishu_doc_comments.list': ['wiki:node:read', 'docs:document.comment:read'],
-  'feishu_doc_comments.list_replies': ['wiki:node:read', 'docs:document.comment:read'],
-  'feishu_doc_comments.create': ['wiki:node:read', 'docs:document.comment:create'],
-  'feishu_doc_comments.reply': ['wiki:node:read', 'docs:document.comment:create'],
-  'feishu_doc_comments.patch': ['docs:document.comment:update'],
-  'feishu_wiki_space.list': ['wiki:space:retrieve'],
-  'feishu_wiki_space.get': ['wiki:space:read'],
-  'feishu_wiki_space.create': ['wiki:space:write_only'],
-  'feishu_wiki_space_node.list': ['wiki:node:retrieve'],
-  'feishu_wiki_space_node.get': ['wiki:node:read'],
-  'feishu_wiki_space_node.create': ['wiki:node:create'],
-  'feishu_wiki_space_node.move': ['wiki:node:move'],
-  'feishu_wiki_space_node.copy': ['wiki:node:copy'],
-  'feishu_im_user_message.send': ['im:message', 'im:message.send_as_user'],
-  'feishu_im_user_message.reply': ['im:message', 'im:message.send_as_user'],
-  'feishu_im_user_fetch_resource.default': [
+  'weact_bitable_app.create': ['base:app:create'],
+  'weact_bitable_app.get': ['base:app:read'],
+  'weact_bitable_app.list': ['space:document:retrieve'],
+  'weact_bitable_app.patch': ['base:app:update'],
+  'weact_bitable_app.copy': ['base:app:copy'],
+  'weact_bitable_app_table.create': ['base:table:create'],
+  'weact_bitable_app_table.list': ['base:table:read'],
+  'weact_bitable_app_table.patch': ['base:table:update'],
+  'weact_bitable_app_table.batch_create': ['base:table:create'],
+  'weact_bitable_app_table_record.create': ['base:record:create'],
+  'weact_bitable_app_table_record.update': ['base:record:update'],
+  'weact_bitable_app_table_record.delete': ['base:record:delete'],
+  'weact_bitable_app_table_record.batch_create': ['base:record:create'],
+  'weact_bitable_app_table_record.batch_update': ['base:record:update'],
+  'weact_bitable_app_table_record.batch_delete': ['base:record:delete'],
+  'weact_bitable_app_table_record.list': ['base:record:retrieve'],
+  'weact_bitable_app_table_field.create': ['base:field:create'],
+  'weact_bitable_app_table_field.list': ['base:field:read'],
+  'weact_bitable_app_table_field.update': ['base:field:read', 'base:field:update'],
+  'weact_bitable_app_table_field.delete': ['base:field:delete'],
+  'weact_bitable_app_table_view.create': ['base:view:write_only'],
+  'weact_bitable_app_table_view.get': ['base:view:read'],
+  'weact_bitable_app_table_view.list': ['base:view:read'],
+  'weact_bitable_app_table_view.patch': ['base:view:write_only'],
+  'weact_calendar_calendar.list': ['calendar:calendar:read'],
+  'weact_calendar_calendar.get': ['calendar:calendar:read'],
+  'weact_calendar_calendar.primary': ['calendar:calendar:read'],
+  'weact_calendar_event.create': ['calendar:calendar.event:create', 'calendar:calendar.event:update'],
+  'weact_calendar_event.list': ['calendar:calendar.event:read'],
+  'weact_calendar_event.get': ['calendar:calendar.event:read'],
+  'weact_calendar_event.patch': ['calendar:calendar.event:update'],
+  'weact_calendar_event.delete': ['calendar:calendar.event:delete'],
+  'weact_calendar_event.search': ['calendar:calendar.event:read'],
+  'weact_calendar_event.reply': ['calendar:calendar.event:reply'],
+  'weact_calendar_event.instances': ['calendar:calendar.event:read'],
+  'weact_calendar_event.instance_view': ['calendar:calendar.event:read'],
+  'weact_calendar_event_attendee.create': ['calendar:calendar.event:update'],
+  'weact_calendar_event_attendee.list': ['calendar:calendar.event:read'],
+  'weact_calendar_freebusy.list': ['calendar:calendar.free_busy:read'],
+  'weact_task_attachment.upload': ['task:attachment:write'],
+  'weact_task_task.create': ['task:task:write', 'task:task:writeonly'],
+  'weact_task_task.get': ['task:task:read', 'task:task:write'],
+  'weact_task_task.list': ['task:task:read', 'task:task:write'],
+  'weact_task_task.patch': ['task:task:write', 'task:task:writeonly'],
+  'weact_task_task.add_members': ['task:task:write', 'task:task:writeonly'],
+  'weact_task_task.append_steps': ['task:task:write', 'task:task:writeonly'],
+  'weact_task_tasklist.create': ['task:tasklist:write'],
+  'weact_task_tasklist.get': ['task:tasklist:read', 'task:tasklist:write'],
+  'weact_task_tasklist.list': ['task:tasklist:read', 'task:tasklist:write'],
+  'weact_task_tasklist.tasks': ['task:tasklist:read', 'task:tasklist:write'],
+  'weact_task_tasklist.patch': ['task:tasklist:write'],
+  'weact_task_tasklist.add_members': ['task:tasklist:write'],
+  'weact_task_comment.create': ['task:comment:write'],
+  'weact_task_comment.list': ['task:comment:read', 'task:comment:write'],
+  'weact_task_comment.get': ['task:comment:read', 'task:comment:write'],
+  'weact_task_section.create': ['task:task'],
+  'weact_task_section.get': ['task:task'],
+  'weact_task_section.list': ['task:task'],
+  'weact_task_section.patch': ['task:task'],
+  'weact_task_section.tasks': ['task:task'],
+  'weact_task_subtask.create': ['task:task:write'],
+  'weact_task_subtask.list': ['task:task:read', 'task:task:write'],
+  'weact_task_agent.register': ['task:task:write'],
+  'weact_task_agent.update_profile': ['task:task:write', 'task:task:writeonly'],
+  'weact_chat.search': ['im:chat:read'],
+  'weact_chat.get': ['im:chat:read'],
+  'weact_chat_members.default': ['im:chat.members:read'],
+  'weact_drive_file.list': ['space:document:retrieve'],
+  'weact_drive_file.get_meta': ['drive:drive.metadata:readonly'],
+  'weact_drive_file.copy': ['docs:document:copy'],
+  'weact_drive_file.move': ['space:document:move'],
+  'weact_drive_file.delete': ['space:document:delete'],
+  'weact_drive_file.upload': ['drive:file:upload'],
+  'weact_drive_file.download': ['drive:file:download'],
+  'weact_doc_media.download': ['board:whiteboard:node:read', 'docs:document.media:download'],
+  'weact_doc_media.insert': ['docx:document:write_only', 'docs:document.media:upload'],
+  'weact_doc_comments.list': ['wiki:node:read', 'docs:document.comment:read'],
+  'weact_doc_comments.list_replies': ['wiki:node:read', 'docs:document.comment:read'],
+  'weact_doc_comments.create': ['wiki:node:read', 'docs:document.comment:create'],
+  'weact_doc_comments.reply': ['wiki:node:read', 'docs:document.comment:create'],
+  'weact_doc_comments.patch': ['docs:document.comment:update'],
+  'weact_wiki_space.list': ['wiki:space:retrieve'],
+  'weact_wiki_space.get': ['wiki:space:read'],
+  'weact_wiki_space.create': ['wiki:space:write_only'],
+  'weact_wiki_space_node.list': ['wiki:node:retrieve'],
+  'weact_wiki_space_node.get': ['wiki:node:read'],
+  'weact_wiki_space_node.create': ['wiki:node:create'],
+  'weact_wiki_space_node.move': ['wiki:node:move'],
+  'weact_wiki_space_node.copy': ['wiki:node:copy'],
+  'weact_im_user_message.send': ['im:message', 'im:message.send_as_user'],
+  'weact_im_user_message.reply': ['im:message', 'im:message.send_as_user'],
+  'weact_im_user_fetch_resource.default': [
     'im:message.group_msg:get_as_user',
     'im:message.p2p_msg:get_as_user',
     'im:message:readonly',
   ],
-  'feishu_im_user_get_messages.default': [
+  'weact_im_user_get_messages.default': [
     'im:chat:read',
     'im:message:readonly',
     'im:message.group_msg:get_as_user',
@@ -299,7 +299,7 @@ export const TOOL_SCOPES: ToolScopeMapping = {
     'contact:contact.base:readonly',
     'contact:user.base:readonly',
   ],
-  'feishu_im_user_search_messages.default': [
+  'weact_im_user_search_messages.default': [
     'im:chat:read',
     'im:message:readonly',
     'im:message.group_msg:get_as_user',
@@ -308,11 +308,11 @@ export const TOOL_SCOPES: ToolScopeMapping = {
     'contact:user.base:readonly',
     'search:message',
   ],
-  'feishu_search_doc_wiki.search': ['search:docs:read'],
-  'feishu_get_user.basic_batch': ['contact:user.basic_profile:readonly'],
-  'feishu_get_user.default': ['contact:contact.base:readonly', 'contact:user.base:readonly'],
-  'feishu_search_user.default': ['contact:user:search'],
-  'feishu_create_doc.default': [
+  'weact_search_doc_wiki.search': ['search:docs:read'],
+  'weact_get_user.basic_batch': ['contact:user.basic_profile:readonly'],
+  'weact_get_user.default': ['contact:contact.base:readonly', 'contact:user.base:readonly'],
+  'weact_search_user.default': ['contact:user:search'],
+  'weact_create_doc.default': [
     'board:whiteboard:node:create',
     'docx:document:create',
     'docx:document:readonly',
@@ -321,41 +321,41 @@ export const TOOL_SCOPES: ToolScopeMapping = {
     'wiki:node:read',
     'docs:document.media:upload',
   ],
-  'feishu_fetch_doc.default': ['docx:document:readonly', 'wiki:node:read'],
-  'feishu_update_doc.default': [
+  'weact_fetch_doc.default': ['docx:document:readonly', 'wiki:node:read'],
+  'weact_update_doc.default': [
     'board:whiteboard:node:create',
     'docx:document:create',
     'docx:document:readonly',
     'docx:document:write_only',
   ],
-  'feishu_sheet.info': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
-  'feishu_sheet.read': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
-  'feishu_sheet.write': [
+  'weact_sheet.info': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
+  'weact_sheet.read': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
+  'weact_sheet.write': [
     'sheets:spreadsheet.meta:read',
     'sheets:spreadsheet:read',
     'sheets:spreadsheet:create',
     'sheets:spreadsheet:write_only',
   ],
-  'feishu_sheet.append': [
+  'weact_sheet.append': [
     'sheets:spreadsheet.meta:read',
     'sheets:spreadsheet:read',
     'sheets:spreadsheet:create',
     'sheets:spreadsheet:write_only',
   ],
-  'feishu_sheet.find': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
-  'feishu_sheet.create': [
+  'weact_sheet.find': ['sheets:spreadsheet.meta:read', 'sheets:spreadsheet:read'],
+  'weact_sheet.create': [
     'sheets:spreadsheet.meta:read',
     'sheets:spreadsheet:read',
     'sheets:spreadsheet:create',
     'sheets:spreadsheet:write_only',
   ],
-  'feishu_sheet.export': ['docs:document:export'],
+  'weact_sheet.export': ['docs:document:export'],
 } as const;
 
 // ===== 必需的应用身份权限 =====
 
 /**
- * 飞书插件运行必须开通的应用身份权限清单
+ * WeAct插件运行必须开通的应用身份权限清单
  *
  * 这些权限是插件基础功能（消息接收、卡片交互、基本信息查询等）所必需的，
  * 如果缺失这些权限，插件将无法正常工作。

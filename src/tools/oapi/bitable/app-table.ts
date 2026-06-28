@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_bitable_app_table tool -- Manage Feishu Bitable tables.
+ * weact_bitable_app_table tool -- Manage Feishu Bitable tables.
  *
  * P0 Actions: create, list, patch
  * P1 Actions: batch_create
@@ -124,17 +124,17 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
 
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_bitable_app_table');
+  const { toolClient, log } = createToolContext(api, 'weact_bitable_app_table');
 
   registerTool(
     api,
     {
-      name: 'feishu_bitable_app_table',
+      name: 'weact_bitable_app_table',
       label: 'Feishu Bitable Tables',
       description:
-        '【以用户身份】飞书多维表格数据表管理工具。当用户要求创建/查询/管理数据表时使用。' +
+        '【以用户身份】WeAct多维表格数据表管理工具。当用户要求创建/查询/管理数据表时使用。' +
         '\n\nActions: create（创建数据表，可选择在创建时传入 fields 数组定义字段，或后续逐个添加）, list（列出所有数据表）, patch（更新数据表）, batch_create（批量创建）。' +
-        '\n\n【字段定义方式】支持两种模式：1) 明确需求时，在 create 中通过 table.fields 一次性定义所有字段（减少 API 调用）；2) 探索式场景时，使用默认表 + feishu_bitable_app_table_field 逐步修改字段（更稳定，易调整）。',
+        '\n\n【字段定义方式】支持两种模式：1) 明确需求时，在 create 中通过 table.fields 一次性定义所有字段（减少 API 调用）；2) 探索式场景时，使用默认表 + weact_bitable_app_table_field 逐步修改字段（更稳定，易调整）。',
       parameters: FeishuBitableAppTableSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuBitableAppTableParams;
@@ -171,7 +171,7 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
               }
 
               const res = await client.invoke(
-                'feishu_bitable_app_table.create',
+                'weact_bitable_app_table.create',
                 (sdk, opts) =>
                   sdk.bitable.appTable.create(
                     {
@@ -204,7 +204,7 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
               log.info(`list: app_token=${p.app_token}, page_size=${p.page_size ?? 50}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table.list',
+                'weact_bitable_app_table.list',
                 (sdk, opts) =>
                   sdk.bitable.appTable.list(
                     {
@@ -240,7 +240,7 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
               log.info(`patch: app_token=${p.app_token}, table_id=${p.table_id}, name=${p.name}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table.patch',
+                'weact_bitable_app_table.patch',
                 (sdk, opts) =>
                   sdk.bitable.appTable.patch(
                     {
@@ -278,7 +278,7 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
               log.info(`batch_create: app_token=${p.app_token}, tables_count=${p.tables.length}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table.batch_create',
+                'weact_bitable_app_table.batch_create',
                 (sdk, opts) =>
                   sdk.bitable.appTable.batchCreate(
                     {
@@ -308,7 +308,7 @@ export function registerFeishuBitableAppTableTool(api: OpenClawPluginApi): void 
         }
       },
     },
-    { name: 'feishu_bitable_app_table' },
+    { name: 'weact_bitable_app_table' },
   );
 
 }

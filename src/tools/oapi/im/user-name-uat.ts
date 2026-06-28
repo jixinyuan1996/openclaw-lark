@@ -122,7 +122,7 @@ export async function batchResolveUserNamesAsUser(params: {
         data?: { users?: Array<{ user_id?: string; name?: string | { value?: string } }> };
       }
       const res = await client.invoke<BatchUserRes>(
-        'feishu_get_user.basic_batch',
+        'weact_get_user.basic_batch',
         (sdk, opts) =>
           (
             sdk as unknown as { request: (config: Record<string, unknown>, opts?: unknown) => Promise<BatchUserRes> }

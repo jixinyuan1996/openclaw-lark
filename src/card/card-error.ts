@@ -29,7 +29,7 @@ export const CARD_CONTENT_SUB_ERROR = {
   ELEMENT_LIMIT: 11310,
 } as const;
 
-// 经验性的飞书卡片表格上限 -- 4+ 张触发 230099/11310（2026-03 实测）。
+// 经验性的WeAct卡片表格上限 -- 4+ 张触发 230099/11310（2026-03 实测）。
 export const FEISHU_CARD_TABLE_LIMIT = 3;
 
 export interface MarkdownTableMatch {
@@ -145,9 +145,9 @@ export function isCardRateLimitError(err: unknown): boolean {
 // ---------------------------------------------------------------------------
 
 /**
- * 收集正文里可被飞书卡片实际渲染的 markdown 表格。
+ * 收集正文里可被WeAct卡片实际渲染的 markdown 表格。
  *
- * 代码块里的示例表格不会被飞书解析成卡片表格元素，因此这里要先排除，
+ * 代码块里的示例表格不会被WeAct解析成卡片表格元素，因此这里要先排除，
  * 让 shouldUseCard() 预检和 sanitizeTextForCard() 降级逻辑使用同一份结果。
  */
 export function findMarkdownTablesOutsideCodeBlocks(text: string): MarkdownTableMatch[] {
@@ -185,7 +185,7 @@ export function findMarkdownTablesOutsideCodeBlocks(text: string): MarkdownTable
 /**
  * 对多段 markdown 文本共享一个表格预算。
  *
- * 段落按数组顺序消耗额度，适合处理“reasoning + 正文”这类会被飞书
+ * 段落按数组顺序消耗额度，适合处理“reasoning + 正文”这类会被WeAct
  * 作为同一张卡片渲染的多块文本。
  */
 export function sanitizeTextSegmentsForCard(
@@ -209,10 +209,10 @@ export function sanitizeTextSegmentsForCard(
 
 /**
  * 对正文中超出 tableLimit 的 markdown 表格降级为 code block，
- * 避免飞书卡片因表格数超限触发 230099/11310。
+ * 避免WeAct卡片因表格数超限触发 230099/11310。
  *
  * 前 tableLimit 张表格保持原样（可正常卡片渲染）；
- * 超出部分用反引号包裹，阻止飞书将其解析为卡片表格元素。
+ * 超出部分用反引号包裹，阻止WeAct将其解析为卡片表格元素。
  */
 export function sanitizeTextForCard(text: string, tableLimit: number = FEISHU_CARD_TABLE_LIMIT): string {
   return sanitizeTextSegmentsForCard([text], tableLimit)[0];

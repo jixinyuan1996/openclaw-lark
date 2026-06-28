@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_bitable_app_table_view tool -- Manage Feishu Bitable views.
+ * weact_bitable_app_table_view tool -- Manage Feishu Bitable views.
  *
  * P1 Actions: create, get, list, patch
  *
@@ -111,15 +111,15 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
 
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_bitable_app_table_view');
+  const { toolClient, log } = createToolContext(api, 'weact_bitable_app_table_view');
 
   registerTool(
     api,
     {
-      name: 'feishu_bitable_app_table_view',
+      name: 'weact_bitable_app_table_view',
       label: 'Feishu Bitable Views',
       description:
-        '【以用户身份】飞书多维表格视图管理工具。当用户要求创建/查询/更新视图、切换展示方式时使用。Actions: create（创建视图）, get（获取视图详情）, list（列出所有视图）, patch（更新视图）。',
+        '【以用户身份】WeAct多维表格视图管理工具。当用户要求创建/查询/更新视图、切换展示方式时使用。Actions: create（创建视图）, get（获取视图详情）, list（列出所有视图）, patch（更新视图）。',
       parameters: FeishuBitableAppTableViewSchema,
       async execute(_toolCallId, params) {
         const p = params as FeishuBitableAppTableViewParams;
@@ -137,7 +137,7 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
               );
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_view.create',
+                'weact_bitable_app_table_view.create',
                 (sdk, opts) =>
                   sdk.bitable.appTableView.create(
                     {
@@ -171,7 +171,7 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
               log.info(`get: app_token=${p.app_token}, table_id=${p.table_id}, view_id=${p.view_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_view.get',
+                'weact_bitable_app_table_view.get',
                 (sdk, opts) =>
                   sdk.bitable.appTableView.get(
                     {
@@ -201,7 +201,7 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
               log.info(`list: app_token=${p.app_token}, table_id=${p.table_id}`);
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_view.list',
+                'weact_bitable_app_table_view.list',
                 (sdk, opts) =>
                   sdk.bitable.appTableView.list(
                     {
@@ -240,7 +240,7 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
               );
 
               const res = await client.invoke(
-                'feishu_bitable_app_table_view.patch',
+                'weact_bitable_app_table_view.patch',
                 (sdk, opts) =>
                   sdk.bitable.appTableView.patch(
                     {
@@ -272,7 +272,7 @@ export function registerFeishuBitableAppTableViewTool(api: OpenClawPluginApi): v
         }
       },
     },
-    { name: 'feishu_bitable_app_table_view' },
+    { name: 'weact_bitable_app_table_view' },
   );
 
 }

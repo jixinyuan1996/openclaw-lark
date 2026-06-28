@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_task_task tool -- Manage Feishu tasks.
+ * weact_task_task tool -- Manage Feishu tasks.
  *
  * P0 Actions: create, get, list, patch
  * P1 Actions: add_members, append_steps
@@ -430,15 +430,15 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
   if (!api.config) return;
   const cfg = api.config;
 
-  const { toolClient, log } = createToolContext(api, 'feishu_task_task');
+  const { toolClient, log } = createToolContext(api, 'weact_task_task');
 
   registerTool(
     api,
     {
-      name: 'feishu_task_task',
+      name: 'weact_task_task',
       label: 'Feishu Task Management',
       description:
-        "【以用户或应用身份】飞书任务管理工具。用于创建、查询、更新任务。Actions: create（创建任务）, get（获取任务详情）, list（查询任务列表，仅返回我负责的任务）, patch（更新任务）, add_members（添加任务成员）, append_steps（追加任务步骤记录）。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。支持通过 auth_type 参数切换用户(user)或应用(tenant)身份；append_steps 固定使用应用身份。",
+        "【以用户或应用身份】WeAct任务管理工具。用于创建、查询、更新任务。Actions: create（创建任务）, get（获取任务详情）, list（查询任务列表，仅返回我负责的任务）, patch（更新任务）, add_members（添加任务成员）, append_steps（追加任务步骤记录）。时间参数使用ISO 8601 / RFC 3339 格式（包含时区），例如 '2024-01-01T00:00:00+08:00'。支持通过 auth_type 参数切换用户(user)或应用(tenant)身份；append_steps 固定使用应用身份。",
       parameters: FeishuTaskTaskSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as FeishuTaskTaskParams;
@@ -497,7 +497,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
 
               const authType = p.auth_type || 'user';
               const res = await client.invoke(
-                'feishu_task_task.create',
+                'weact_task_task.create',
                 (sdk, opts) =>
                   sdk.task.v2.task.create(
                     {
@@ -528,7 +528,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
 
               const authType = p.auth_type || 'user';
               const res = await client.invoke(
-                'feishu_task_task.get',
+                'weact_task_task.get',
                 (sdk, opts) =>
                   sdk.task.v2.task.get(
                     {
@@ -558,7 +558,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
 
               const authType = p.auth_type || 'user';
               const res = await client.invoke(
-                'feishu_task_task.list',
+                'weact_task_task.list',
                 (sdk, opts) =>
                   sdk.task.v2.task.list(
                     {
@@ -677,7 +677,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
 
               const authType = p.auth_type || 'user';
               const res = await client.invoke(
-                'feishu_task_task.patch',
+                'weact_task_task.patch',
                 (sdk, opts) =>
                   sdk.task.v2.task.patch(
                     {
@@ -728,7 +728,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
 
               const authType = p.auth_type || 'user';
               const res = await client.invoke(
-                'feishu_task_task.add_members',
+                'weact_task_task.add_members',
                 (sdk, opts) =>
                   sdk.task.v2.task.addMembers(
                     {
@@ -777,7 +777,7 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
               const token = (tatRes as any)?.tenant_access_token ?? "";
 
               const res = await client.invokeByPath(
-                'feishu_task_task.append_steps',
+                'weact_task_task.append_steps',
                 '/open-apis/task/v2/agent_task_step_info/append_task_steps',
                 {
                   method: 'POST',
@@ -800,6 +800,6 @@ export function registerFeishuTaskTaskTool(api: OpenClawPluginApi): void {
         }
       },
     },
-    { name: 'feishu_task_task' },
+    { name: 'weact_task_task' },
   );
 }

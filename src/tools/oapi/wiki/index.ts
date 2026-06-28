@@ -17,27 +17,27 @@ import { registerFeishuWikiSpaceNodeTool } from './space-node';
  */
 export function registerFeishuWikiTools(api: OpenClawPluginApi): void {
   if (!api.config) {
-    api.logger.debug?.('feishu_wiki: No config available, skipping');
+    api.logger.debug?.('weact_wiki: No config available, skipping');
     return;
   }
 
   const accounts = getEnabledLarkAccounts(api.config);
   if (accounts.length === 0) {
-    api.logger.debug?.('feishu_wiki: No Feishu accounts configured, skipping');
+    api.logger.debug?.('weact_wiki: No Feishu accounts configured, skipping');
     return;
   }
 
   const toolsCfg = resolveAnyEnabledToolsConfig(accounts);
   if (!toolsCfg.wiki) {
-    api.logger.debug?.('feishu_wiki: wiki tool disabled in all accounts');
+    api.logger.debug?.('weact_wiki: wiki tool disabled in all accounts');
     return;
   }
 
   // 注册所有工具
   const registered: string[] = [];
-  if (registerFeishuWikiSpaceTool(api)) registered.push('feishu_wiki_space');
-  if (registerFeishuWikiSpaceNodeTool(api)) registered.push('feishu_wiki_space_node');
+  if (registerFeishuWikiSpaceTool(api)) registered.push('weact_wiki_space');
+  if (registerFeishuWikiSpaceNodeTool(api)) registered.push('weact_wiki_space_node');
   if (registered.length > 0) {
-    api.logger.debug?.(`feishu_wiki: Registered ${registered.join(', ')}`);
+    api.logger.debug?.(`weact_wiki: Registered ${registered.join(', ')}`);
   }
 }

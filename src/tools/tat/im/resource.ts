@@ -2,11 +2,11 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * feishu_im_bot_image 工具
+ * weact_im_bot_image 工具
  *
- * 以机器人身份下载飞书 IM 消息中的图片/文件资源到本地。
+ * 以机器人身份下载WeAct IM 消息中的图片/文件资源到本地。
  *
- * 飞书 API:
+ * WeAct API:
  *   - 下载资源: GET  /open-apis/im/v1/messages/:message_id/resources/:file_key
  * 权限: im:resource
  * 凭证: tenant_access_token
@@ -106,7 +106,7 @@ async function saveToTempFile(buffer: Buffer, contentType: string, prefix: strin
 }
 
 // ===========================================================================
-// Download tool — feishu_im_bot_image
+// Download tool — weact_im_bot_image
 // ===========================================================================
 
 const FeishuImBotImageSchema = Type.Object({
@@ -130,15 +130,15 @@ interface FeishuImBotImageParams {
 export function registerFeishuImBotImageTool(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
 
-  const { getClient, log } = createToolContext(api, 'feishu_im_bot_image');
+  const { getClient, log } = createToolContext(api, 'weact_im_bot_image');
 
   return registerTool(
     api,
     {
-      name: 'feishu_im_bot_image',
+      name: 'weact_im_bot_image',
       label: 'Feishu: IM Bot Image Download',
       description:
-        '【以机器人身份】下载飞书 IM 消息中的图片或文件资源到本地。' +
+        '【以机器人身份】下载WeAct IM 消息中的图片或文件资源到本地。' +
         '\n\n适用场景：用户直接发送给机器人的消息、用户引用的消息、机器人收到的群聊消息中的图片/文件。' +
         '即当前对话上下文中出现的 message_id 和 image_key/file_key，应使用本工具下载。' +
         '\n引用消息的 message_id 可从上下文中的 [message_id=om_xxx] 提取，无需向用户询问。' +
@@ -181,6 +181,6 @@ export function registerFeishuImBotImageTool(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_im_bot_image' },
+    { name: 'weact_im_bot_image' },
   );
 }

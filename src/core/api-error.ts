@@ -53,7 +53,7 @@ function coerceCode(value: unknown): number | undefined {
 }
 
 /**
- * 从 Lark SDK 抛错对象中提取飞书 API code。
+ * 从 Lark SDK 抛错对象中提取WeAct API code。
  *
  * 支持三种常见结构：
  * - `{ code }` — SDK 直接挂载

@@ -14,7 +14,7 @@
 // Feishu error code constants
 // ---------------------------------------------------------------------------
 
-/** 飞书 OAPI 错误码常量，替代各处硬编码的 magic number。 */
+/** WeAct OAPI 错误码常量，替代各处硬编码的 magic number。 */
 export const LARK_ERROR = {
   /** 应用 scope 不足（租户维度） */
   APP_SCOPE_MISSING: 99991672,
@@ -74,7 +74,7 @@ export interface AuthHint {
   user_open_id: string;
   message: string;
   next_tool_call: {
-    tool: 'feishu_oauth';
+    tool: 'weact_oauth';
     params: { action: 'authorize'; scope: string };
   };
 }
@@ -105,7 +105,7 @@ export class NeedAuthorizationError extends Error {
 /**
  * 应用缺少 application:application:self_manage 权限，无法查询应用权限配置。
  *
- * 需要管理员在飞书开放平台开通 application:application:self_manage 权限。
+ * 需要管理员在WeAct开放平台开通 application:application:self_manage 权限。
  */
 export class AppScopeCheckFailedError extends Error {
   /** 应用 ID，用于生成开放平台权限管理链接。 */
@@ -121,7 +121,7 @@ export class AppScopeCheckFailedError extends Error {
 /**
  * 应用未开通 OAPI 所需 scope。
  *
- * 需要管理员在飞书开放平台开通权限。
+ * 需要管理员在WeAct开放平台开通权限。
  */
 export class AppScopeMissingError extends Error {
   readonly apiName: string;
@@ -160,7 +160,7 @@ export class AppScopeMissingError extends Error {
  * 用户未授权或 scope 不足，需要发起 OAuth 授权。
  *
  * `requiredScopes` 为 APP∩OAPI 的有效 scope，可直接传给
- * `feishu_oauth authorize --scope`。
+ * `weact_oauth authorize --scope`。
  */
 export class UserAuthRequiredError extends Error {
   readonly userOpenId: string;

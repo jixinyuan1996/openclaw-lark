@@ -2,12 +2,12 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * 消息读取工具集 -- 以用户身份获取/搜索飞书消息
+ * 消息读取工具集 -- 以用户身份获取/搜索WeAct消息
  *
  * 包含：
- *   - feishu_im_user_get_messages       (chat_id / open_id → 会话消息)
- *   - feishu_im_user_get_thread_messages (thread_id → 话题消息)
- *   - feishu_im_user_search_messages     (跨会话关键词搜索)
+ *   - weact_im_user_get_messages       (chat_id / open_id → 会话消息)
+ *   - weact_im_user_get_thread_messages (thread_id → 话题消息)
+ *   - weact_im_user_search_messages     (跨会话关键词搜索)
  */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -37,7 +37,7 @@ async function resolveP2PChatId(
     code?: number;
     msg?: string;
     data?: { p2p_chats?: Array<{ chat_id: string }> };
-  }>('feishu_im_user_get_messages.default', '/open-apis/im/v1/chat_p2p/batch_query', {
+  }>('weact_im_user_get_messages.default', '/open-apis/im/v1/chat_p2p/batch_query', {
     method: 'POST',
     body: { chatter_ids: [openId] },
     query: { user_id_type: 'open_id' },
@@ -89,7 +89,7 @@ async function formatAndReturn(res: any, config: any, log: { info: (msg: string)
 }
 
 // ===========================================================================
-// feishu_im_user_get_messages
+// weact_im_user_get_messages
 // ===========================================================================
 
 const GetMessagesSchema = Type.Object({
@@ -142,12 +142,12 @@ interface GetMessagesParams {
 function registerGetMessages(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
-  const { toolClient, log } = createToolContext(api, 'feishu_im_user_get_messages');
+  const { toolClient, log } = createToolContext(api, 'weact_im_user_get_messages');
 
   return registerTool(
     api,
     {
-      name: 'feishu_im_user_get_messages',
+      name: 'weact_im_user_get_messages',
       label: 'Feishu: Get IM Messages',
       description:
         '【以用户身份】获取群聊或单聊的历史消息。' +
@@ -189,7 +189,7 @@ function registerGetMessages(api: OpenClawPluginApi): boolean {
           );
 
           const res = await client.invoke(
-            'feishu_im_user_get_messages.default',
+            'weact_im_user_get_messages.default',
             (sdk, opts) =>
               sdk.im.v1.message.list(
                 {
@@ -218,12 +218,12 @@ function registerGetMessages(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_im_user_get_messages' },
+    { name: 'weact_im_user_get_messages' },
   );
 }
 
 // ===========================================================================
-// feishu_im_user_get_thread_messages
+// weact_im_user_get_thread_messages
 // ===========================================================================
 
 const GetThreadMessagesSchema = Type.Object({
@@ -247,20 +247,20 @@ interface GetThreadMessagesParams {
 function registerGetThreadMessages(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
-  const { toolClient, log } = createToolContext(api, 'feishu_im_user_get_thread_messages');
+  const { toolClient, log } = createToolContext(api, 'weact_im_user_get_thread_messages');
 
   return registerTool(
     api,
     {
-      name: 'feishu_im_user_get_thread_messages',
+      name: 'weact_im_user_get_thread_messages',
       label: 'Feishu: Get Thread Messages',
       description:
         '【以用户身份】获取话题（thread）内的消息列表。' +
         '\n\n用法：' +
         '\n- 通过 thread_id（omt_xxx）获取话题内的所有消息' +
         '\n- 支持分页：page_size + page_token' +
-        '\n\n【注意】话题消息不支持时间范围过滤（飞书 API 限制）' +
-        '\n\n返回消息列表，格式同 feishu_im_user_get_messages。',
+        '\n\n【注意】话题消息不支持时间范围过滤（WeAct API 限制）' +
+        '\n\n返回消息列表，格式同 weact_im_user_get_messages。',
       parameters: GetThreadMessagesSchema,
       async execute(_toolCallId: string, params: unknown) {
         const p = params as GetThreadMessagesParams;
@@ -271,7 +271,7 @@ function registerGetThreadMessages(api: OpenClawPluginApi): boolean {
           );
 
           const res = await client.invoke(
-            'feishu_im_user_get_messages.default',
+            'weact_im_user_get_messages.default',
             (sdk, opts) =>
               sdk.im.v1.message.list(
                 {
@@ -298,12 +298,12 @@ function registerGetThreadMessages(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_im_user_get_thread_messages' },
+    { name: 'weact_im_user_get_thread_messages' },
   );
 }
 
 // ===========================================================================
-// feishu_im_user_search_messages
+// weact_im_user_search_messages
 // ===========================================================================
 
 const SearchMessagesSchema = Type.Object({
@@ -412,7 +412,7 @@ async function fetchChatContexts(
           p2p_target_id?: string;
         }>;
       };
-    }>('feishu_im_user_search_messages.default', '/open-apis/im/v1/chats/batch_query', {
+    }>('weact_im_user_search_messages.default', '/open-apis/im/v1/chats/batch_query', {
       method: 'POST',
       body: { chat_ids: chatIds },
       query: { user_id_type: 'open_id' },
@@ -482,15 +482,15 @@ function enrichMessages(
 function registerSearchMessages(api: OpenClawPluginApi): boolean {
   if (!api.config) return false;
   const config = api.config;
-  const { toolClient, log } = createToolContext(api, 'feishu_im_user_search_messages');
+  const { toolClient, log } = createToolContext(api, 'weact_im_user_search_messages');
 
   return registerTool(
     api,
     {
-      name: 'feishu_im_user_search_messages',
+      name: 'weact_im_user_search_messages',
       label: 'Feishu: Search Messages',
       description:
-        '【以用户身份】跨会话搜索飞书消息。' +
+        '【以用户身份】跨会话搜索WeAct消息。' +
         '\n\n用法：' +
         '\n- 按关键词搜索消息内容' +
         '\n- 按发送者、被@用户、消息类型过滤' +
@@ -504,7 +504,7 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
         '\n\n返回消息列表，每条消息包含 message_id、msg_type、content、sender、create_time 等字段。' +
         '\n每条消息还包含 chat_id、chat_type（p2p/group）、chat_name（群名或单聊对方名字）。' +
         '\n单聊消息额外包含 chat_partner（对方 open_id 和名字）。' +
-        '\n搜索结果中的 chat_id 和 thread_id 可配合 feishu_im_user_get_messages / feishu_im_user_get_thread_messages 查看上下文。',
+        '\n搜索结果中的 chat_id 和 thread_id 可配合 weact_im_user_get_messages / weact_im_user_get_thread_messages 查看上下文。',
       parameters: SearchMessagesSchema,
 
       async execute(_toolCallId: string, params: unknown) {
@@ -527,7 +527,7 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
           log.info(`search: query="${p.query ?? ''}", page_size=${p.page_size ?? 50}`);
 
           const searchRes = await client.invoke(
-            'feishu_im_user_search_messages.default',
+            'weact_im_user_search_messages.default',
             (sdk, opts) =>
               sdk.search.message.create(
                 {
@@ -561,7 +561,7 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
             code?: number;
             msg?: string;
             data?: { items?: any[] };
-          }>('feishu_im_user_search_messages.default', `/open-apis/im/v1/messages/mget?${queryStr}`, {
+          }>('weact_im_user_search_messages.default', `/open-apis/im/v1/messages/mget?${queryStr}`, {
             method: 'GET',
             query: { user_id_type: 'open_id', card_msg_content_type: 'raw_card_content' },
             as: 'user',
@@ -594,7 +594,7 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
         }
       },
     },
-    { name: 'feishu_im_user_search_messages' },
+    { name: 'weact_im_user_search_messages' },
   );
 }
 
@@ -604,8 +604,8 @@ function registerSearchMessages(api: OpenClawPluginApi): boolean {
 
 export function registerMessageReadTools(api: OpenClawPluginApi): string[] {
   const registered: string[] = [];
-  if (registerGetMessages(api)) registered.push('feishu_im_user_get_messages');
-  if (registerGetThreadMessages(api)) registered.push('feishu_im_user_get_thread_messages');
-  if (registerSearchMessages(api)) registered.push('feishu_im_user_search_messages');
+  if (registerGetMessages(api)) registered.push('weact_im_user_get_messages');
+  if (registerGetThreadMessages(api)) registered.push('weact_im_user_get_thread_messages');
+  if (registerSearchMessages(api)) registered.push('weact_im_user_search_messages');
   return registered;
 }

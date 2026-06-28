@@ -2,7 +2,7 @@
  * Copyright (c) 2026 ByteDance Ltd. and/or its affiliates
  * SPDX-License-Identifier: MIT
  *
- * 飞书工具开发的通用辅助函数
+ * WeAct工具开发的通用辅助函数
  *
  * 提供所有工具通用的模式，减少重复代码。
  */
@@ -69,7 +69,7 @@ export { getResolvedConfig } from '../core/lark-client';
 // ---------------------------------------------------------------------------
 
 /**
- * 获取飞书客户端的标准模式
+ * 获取WeAct客户端的标准模式
  *
  * 这是所有工具通用的逻辑：
  * 1. 优先使用 LarkTicket 中的 accountId 动态解析账号
@@ -78,7 +78,7 @@ export { getResolvedConfig } from '../core/lark-client';
  *
  * @param config - OpenClaw 配置对象
  * @param accountIndex - 使用第几个账号（默认 0，即第一个），仅在无 LarkTicket 时使用
- * @returns 飞书 SDK 客户端实例
+ * @returns WeAct SDK 客户端实例
  * @throws 如果没有启用的账号
  *
  * @example
@@ -131,7 +131,7 @@ export function createClientGetter(config: ClawdbotConfig, accountIndex = 0): Cl
 }
 
 /**
- * 获取当前请求对应的飞书账号信息
+ * 获取当前请求对应的WeAct账号信息
  *
  * 优先使用 LarkTicket 中的 accountId，回退到第一个启用的账号。
  *
@@ -237,11 +237,11 @@ export function createToolContext(
  * @example
  * ```typescript
  * export function registerMyTool(api: OpenClawPluginApi) {
- *   if (!checkToolRegistration(api, 'feishu_my_tool')) {
+ *   if (!checkToolRegistration(api, 'weact_my_tool')) {
  *     return;
  *   }
  *
- *   const { toolClient, log } = createToolContext(api, 'feishu_my_tool');
+ *   const { toolClient, log } = createToolContext(api, 'weact_my_tool');
  *   api.registerTool({ ... });
  * }
  * ```
@@ -269,10 +269,10 @@ export function checkToolRegistration(api: OpenClawPluginApi, toolName: string):
  * @example
  * ```typescript
  * // 旧代码：
- * api.registerTool({ name: 'feishu_my_tool', ... });
+ * api.registerTool({ name: 'weact_my_tool', ... });
  *
  * // 新代码：
- * registerTool(api, { name: 'feishu_my_tool', ... });
+ * registerTool(api, { name: 'weact_my_tool', ... });
  * ```
  */
 export function registerTool(
