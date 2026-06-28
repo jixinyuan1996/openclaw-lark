@@ -71,9 +71,10 @@ export interface LarkClientCredentials {
 // Brand → SDK domain
 // ---------------------------------------------------------------------------
 
-const BRAND_TO_DOMAIN: Record<string, Lark.Domain> = {
+const BRAND_TO_DOMAIN: Record<string, Lark.Domain | string> = {
   feishu: Lark.Domain.Feishu,
   lark: Lark.Domain.Lark,
+  weact: 'https://open.weact.pipechina.com.cn',
 };
 
 /** Map a `LarkBrand` to the SDK `domain` parameter. */

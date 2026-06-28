@@ -40,7 +40,7 @@ export type FeishuAccountConfig = z.infer<typeof FeishuAccountConfigSchema>;
  * - `"lark"` targets the international Lark service.
  * - Any other string is treated as a custom base URL.
  */
-export type LarkBrand = 'feishu' | 'lark' | (string & {});
+export type LarkBrand = 'feishu' | 'lark' | 'weact' | (string & {});
 
 /** How the plugin connects to Feishu to receive events. */
 export type FeishuConnectionMode = 'websocket' | 'webhook';

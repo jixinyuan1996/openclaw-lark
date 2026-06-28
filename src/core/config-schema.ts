@@ -32,7 +32,7 @@ const ReplyModeSchema = z
   .optional();
 const ChunkModeEnum = z.enum(['newline', 'paragraph', 'none']);
 
-const DomainSchema = z.union([z.literal('feishu'), z.literal('lark'), z.string().regex(/^https:\/\//)]).optional();
+const DomainSchema = z.union([z.literal('feishu'), z.literal('lark'), z.literal('weact'), z.string().regex(/^https:\/\//)]).optional();
 
 const AllowFromSchema = z
   .union([z.string(), z.array(z.string())])
