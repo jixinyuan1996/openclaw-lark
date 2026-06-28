@@ -22,8 +22,9 @@ export function resolveDomainUrl(brand: LarkBrand): string {
   const map: Record<string, string> = {
     feishu: 'https://open.feishu.cn',
     lark: 'https://open.larksuite.com',
+    weact: 'https://open.weact.pipechina.com.cn',
   };
-  return map[brand] ?? `https://${brand}`;
+  return map[brand] ?? (brand?.startsWith('https://') ? brand.replace(/\/+$/, '') : `https://${brand}`);
 }
 
 // ---------------------------------------------------------------------------

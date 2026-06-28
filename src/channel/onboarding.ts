@@ -280,6 +280,7 @@ export const feishuOnboardingAdapter: ChannelSetupWizardAdapter = {
       options: [
         { value: 'feishu', label: 'Feishu (feishu.cn) - China' },
         { value: 'lark', label: 'Lark (larksuite.com) - International' },
+        { value: 'weact', label: 'WeAct (weact.pipechina.com.cn) - PipeChina' },
       ],
       initialValue: currentDomain,
     });
