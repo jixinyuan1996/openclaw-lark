@@ -10,39 +10,25 @@
 
 import type { LarkBrand } from './types';
 
-// ---------------------------------------------------------------------------
-// WeAct private deployment overrides
-//
-// Set environment variables to redirect all API/applink/www calls to your
-// WeAct private deployment instead of the public Feishu/Lark cloud:
-//
-//   WEACT_OPEN_PLATFORM_URL  e.g. https://open.weact.pipechina.com.cn
-//   WEACT_APPLINK_URL        e.g. https://applink.weact.pipechina.com.cn
-//   WEACT_WWW_URL            e.g. https://open.weact.pipechina.com.cn
-//
-// When any of these are set, the corresponding domain function returns the
-// override value regardless of the brand argument.
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// Domain helpers
-// ---------------------------------------------------------------------------
+// When brand is a full URL (https://...), treat it as a private deployment
+// base URL — the same pattern used by lark-client.ts resolveBrand().
+// Set channels.feishu.domain to your private URL in openclaw.json.
 
 /** 开放平台域名 (API & 权限管理页面) */
 export function openPlatformDomain(brand?: LarkBrand): string {
-  if (process.env.WEACT_OPEN_PLATFORM_URL) return process.env.WEACT_OPEN_PLATFORM_URL;
+  if (brand?.startsWith('https://')) return brand.replace(/\/+$/, '');
   return brand === 'lark' ? 'https://open.larksuite.com' : 'https://open.feishu.cn';
 }
 
 /** Applink 域名 */
 export function applinkDomain(brand?: LarkBrand): string {
-  if (process.env.WEACT_APPLINK_URL) return process.env.WEACT_APPLINK_URL;
+  if (brand?.startsWith('https://')) return brand.replace(/\/+$/, '').replace('//open.', '//applink.');
   return brand === 'lark' ? 'https://applink.larksuite.com' : 'https://applink.feishu.cn';
 }
 
 /** 主站域名 (文档、表格等用户可见链接) */
 export function wwwDomain(brand?: LarkBrand): string {
-  if (process.env.WEACT_WWW_URL) return process.env.WEACT_WWW_URL;
+  if (brand?.startsWith('https://')) return brand.replace(/\/+$/, '');
   return brand === 'lark' ? 'https://www.larksuite.com' : 'https://www.feishu.cn';
 }
 
