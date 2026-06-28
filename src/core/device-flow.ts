@@ -71,7 +71,7 @@ export function resolveOAuthEndpoints(brand: LarkBrand): {
   }
   if (brand === 'weact') {
     return {
-      deviceAuthorization: 'https://open.weact.pipechina.com.cn/oauth/v1/device_authorization',
+      deviceAuthorization: 'https://accounts.weact.pipechina.com.cn/oauth/v1/device_authorization',
       token: 'https://open.weact.pipechina.com.cn/open-apis/authen/v2/oauth/token',
     };
   }
