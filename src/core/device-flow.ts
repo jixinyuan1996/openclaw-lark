@@ -69,6 +69,12 @@ export function resolveOAuthEndpoints(brand: LarkBrand): {
       token: 'https://open.larksuite.com/open-apis/authen/v2/oauth/token',
     };
   }
+  if (brand === 'weact') {
+    return {
+      deviceAuthorization: 'https://accounts.weact.pipechina.com.cn/oauth/v1/device_authorization',
+      token: 'https://open.weact.pipechina.com.cn/open-apis/authen/v2/oauth/token',
+    };
+  }
   // Custom domain – derive paths by convention.
   // Smart derivation: open.X → accounts.X for the device authorization endpoint.
   const base = brand.replace(/\/+$/, '');
